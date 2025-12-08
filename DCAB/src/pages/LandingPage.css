@@ -21,14 +21,25 @@
     max-width: 750px;
     color: #374151;
     backdrop-filter: blur(4px);
-    padding: ;
-    position: relative;
-    z-index: 5;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 40px 20px;
+    border-radius: 20px;
+    animation: fadeIn 1.2s ease forwards;
+    opacity: 0;
+    transform: translate(20px);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #111827;
+    line-height: 1.15;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+    color: #4b5563;
 }
 
 .hero-overlay {
@@ -37,34 +48,25 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
-.hero-content h1 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.hero-content p {
-    font-size: 22px;
-    margin-bottom: 25px;
-}
-
 .hero-btn {
-    padding: 12px 40px;
-    font-size: 18px;
-    background: #22C55E;
-    color: black;
+    padding: 14px 45px;
+    font-size: 1.2rem;
+    background: black;
+    color: #fff;
     border-radius: 12px;
     text-decoration: none;
-    transition: 0.25s ease;
+    font-weight: 600;
+    transition: transform 0.25s ease, background-color 0.25s ease;
 }
 
 .hero-btn:hover {
-    background-color: #14B8A6;
+    transform: scale(1.05);
+    background-color: #067d47;
 }
 
 .CatchPhrase {
-    font-size: large;
-    color: #6B7280;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 
@@ -79,5 +81,12 @@
 
     100% {
         background-position: 0% 50%;
+    }
+}
+
+@keyframes fadeIn {
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
     }
 }
