@@ -21,6 +21,7 @@
     max-width: 750px;
     color: #374151;
     backdrop-filter: blur(4px);
+    padding: ;
     position: relative;
     z-index: 5;
     height: 100%;
