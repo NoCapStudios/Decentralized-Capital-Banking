@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { Header } from "../components/Header";
+import { Header } from "../components/common/Header";
 import "./LandingPage.css";
 
 export function LandingPage() {

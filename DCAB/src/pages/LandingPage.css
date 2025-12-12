@@ -1,7 +1,7 @@
 .animated-gradient {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(120deg, #dcdcdc, #67d446);
+    background: linear-gradient(120deg, #dcdcdc, #63c445);
     background-size: 300% 300%;
     animation: gradientShift 8s ease-in-out infinite;
     display: flex;
