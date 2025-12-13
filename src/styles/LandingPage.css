@@ -1,7 +1,8 @@
 .animated-gradient {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(120deg, #dcdcdc, #63c445);
+    /* #dcdcdc #63c445 */
+    background: linear-gradient(120deg, #17213a, #060e34);
     background-size: 300% 300%;
     animation: gradientShift 8s ease-in-out infinite;
     display: flex;
@@ -19,7 +20,7 @@
 .hero-content {
     text-align: center;
     max-width: 750px;
-    color: #374151;
+    color: #8f9eb6;
     backdrop-filter: blur(4px);
     padding: 40px 20px;
     border-radius: 20px;
@@ -28,19 +29,22 @@
     transform: translate(20px);
 }
 
-.hero-content h1 {
+.hero-content h1,
+.install-app h1 {
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 15px;
-    color: #111827;
+    color: #929bb0;
     line-height: 1.15;
 }
 
-.hero-content p {
+.hero-content p,
+.install-app p {
     font-size: 1.3rem;
     margin-bottom: 35px;
-    color: #4b5563;
+    color: #5c656fc8;
 }
+
 
 .hero-overlay {
     position: absolute;

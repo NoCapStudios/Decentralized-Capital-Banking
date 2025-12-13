@@ -1,0 +1,72 @@
+/* ---------- Slider Value Text ---------- */
+.slider-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding-right: 10px;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* ---------- MUI Slider Base ---------- */
+.MuiSlider-root {
+    width: 100%;
+    padding: 14px 0;
+}
+
+/* Track (filled part) */
+.MuiSlider-track {
+    height: 6px;
+    border-radius: 6px;
+    background-color: #111;
+}
+
+.MuiSlider-rail {
+    height: 6px;
+    border-radius: 6px;
+    opacity: 0.2;
+    background-color: #111;
+}
+
+.MuiSlider-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 3px solid #111;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* .MuiSlider-thumb:hover,
+.MuiSlider-thumb.Mui-focusVisible {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.08);
+} */
+
+.MuiSlider-thumb.Mui-active {
+    transform: scale(1.5);
+}
+
+.MuiSlider-valueLabel {
+    background: #111;
+    color: #fff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.MuiSlider-mark {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #111;
+    opacity: 0.25;
+}
+
+.MuiSlider-markActive {
+    opacity: 1;
+}
+
+.Mui-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

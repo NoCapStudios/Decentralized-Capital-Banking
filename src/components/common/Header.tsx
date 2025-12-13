@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import { HashLink } from "react-router-hash-link";
 import "../../styles/Header.css";
 
 export function Header() {
@@ -14,13 +15,16 @@ export function Header() {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/">Download App</NavLink>
+            <HashLink to="/#install-app">Download App</HashLink>
           </li>
           <li>
             <NavLink to="/revenue-tracker">Tracker</NavLink>
           </li>
           <li>
             <NavLink to="/revenue-logger">Logger</NavLink>
+          </li>
+          <li>
+            <NavLink to="/auth">isSignedUp ? Sign In : Sign Up</NavLink>
           </li>
         </ul>
       </nav>

@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ChevronUp, ChevronDown } from "lucide-react";
+import Slider from "@mui/material/Slider";
 import { useForm } from "../../context/FormContext";
 import "../../styles/GetStarted.css";
+import "../../styles/Slider.css";
+/* helpers */
+const formatMoney = (n: number) => n.toLocaleString("en-US");
 
 export function GetStarted() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -16,28 +20,12 @@ export function GetStarted() {
       type: "text",
       placeholder: "John",
     },
-    {
-      key: "lastName",
-      label: "Last name",
-      type: "text",
-      placeholder: "Doe",
-    },
-    {
-      key: "age",
-      label: "Age",
-      type: "number",
-      placeholder: "25",
-      min: 18,
-      step: 1,
-    },
+    { key: "lastName", label: "Last name", type: "text", placeholder: "Doe" },
+    { key: "age", label: "Age", type: "slider" },
     {
       key: "requestAmount",
       label: "How much would you like to request?",
-      type: "number",
-      placeholder: "$5,000",
-      min: 100,
-      max: 10000,
-      step: 25,
+      type: "slider",
     },
     {
       key: "purpose",
@@ -53,20 +41,8 @@ export function GetStarted() {
     },
   ];
 
-  const handleChange = (key: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSubmit = () => {
-    navigate("/user-panel");
-  };
-
-  const formatMoney = (n: number) => {
-    n.toLocaleString("en-US");
-  };
-
   const handleNext = () => {
-    if (fields[currentStep].key === "age" && Number(formData.age) < 18) {
+    if (fields[currentStep].key === "age" && formData.age < 18) {
       alert("Minimum age is 18");
       return;
     }
@@ -77,15 +53,11 @@ export function GetStarted() {
   };
 
   const handlePrev = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
+    if (currentStep > 0) setCurrentStep(currentStep - 1);
   };
 
   const handleKeyPress = (e: { key: string }) => {
-    if (e.key === "Enter" && currentStep < fields.length - 1) {
-      handleNext();
-    }
+    if (e.key === "Enter") handleNext();
   };
 
   const validateForm = () => {
@@ -93,67 +65,49 @@ export function GetStarted() {
 
     if (!formData.firstName.trim()) errors.push("First name is missing");
     if (!formData.lastName.trim()) errors.push("Last name is missing");
-
-    if (!formData.age) {
-      errors.push("Age is missing");
-    } else if (Number(formData.age) < 18) {
-      errors.push("You must be at least 18 years old");
-    }
-
+    if (formData.age < 18) errors.push("You must be at least 18");
     if (!formData.requestAmount) errors.push("Requested amount is missing");
-
     if (!formData.purpose.trim()) errors.push("Purpose is missing");
-
     if (!formData.email.trim()) errors.push("Email is missing");
-    handleSubmit();
+
     return errors;
   };
 
-  // replace fieldChecks with this
-  const fieldChecks = () => {
+  const handleSubmit = () => {
     const errors = validateForm();
-
-    if (errors.length > 0) {
-      errors.forEach((err) => alert(err));
+    if (errors.length) {
+      errors.forEach((e) => alert(e));
       return;
     }
 
-    console.log("Form submitted:", {
-      ...formData,
-      age: Number(formData.age),
-      requestAmount: Number(formData.requestAmount),
-    });
+    navigate("/user-panel");
   };
 
   const getFieldStyle = (index: number) => {
     const diff = index - currentStep;
 
-    if (diff === 0) {
-      return {
-        transform: "translateY(0) scale(1)",
-        opacity: 1,
-        zIndex: 10,
-      };
-    } else if (diff === 1) {
+    if (diff === 0)
+      return { transform: "translateY(0) scale(1)", opacity: 1, zIndex: 10 };
+    if (diff === 1)
       return {
         transform: "translateY(140px) scale(0.85)",
         opacity: 0.5,
         zIndex: 5,
       };
-    } else if (diff === -1) {
+    if (diff === -1)
       return {
         transform: "translateY(-140px) scale(0.85)",
         opacity: 0.5,
         zIndex: 5,
       };
-    } else {
-      return {
-        transform: `translateY(${diff * 160}px) scale(0.7)`,
-        opacity: 0,
-        zIndex: 0,
-      };
-    }
+
+    return {
+      transform: `translateY(${diff * 160}px) scale(0.7)`,
+      opacity: 0,
+      zIndex: 0,
+    };
   };
+
   return (
     <div className="carousel-container">
       <div className="carousel-wrapper">
@@ -162,13 +116,13 @@ export function GetStarted() {
             Step {currentStep + 1} of {fields.length}
           </div>
           <div className="progress-bars">
-            {fields.map((_, index) => (
+            {fields.map((_, i) => (
               <div
-                key={index}
+                key={i}
                 className={`progress-bar ${
-                  index === currentStep
+                  i === currentStep
                     ? "progress-bar-active"
-                    : index < currentStep
+                    : i < currentStep
                     ? "progress-bar-complete"
                     : "progress-bar-inactive"
                 }`}
@@ -186,23 +140,73 @@ export function GetStarted() {
             >
               <div className="field-card">
                 <label className="field-label">{field.label}</label>
-                <input
-                  type={field.type}
-                  value={formData[field.key]}
-                  onChange={(e) => handleChange(field.key, e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={field.placeholder}
-                  min={field.min}
-                  max={field.max}
-                  step={field.step}
-                  disabled={index !== currentStep}
-                  className="field-input"
-                />
+
+                {field.key === "age" && (
+                  <>
+                    <div className="slider-value">{formData.age}</div>
+                    <Slider
+                      value={formData.age}
+                      min={18}
+                      max={100}
+                      step={1}
+                      marks
+                      valueLabelDisplay="auto"
+                      disabled={index !== currentStep}
+                      onChange={(_, value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          age: value as number,
+                        }))
+                      }
+                    />
+                  </>
+                )}
+
+                {field.key === "requestAmount" && (
+                  <>
+                    <div className="slider-value">
+                      ${formatMoney(formData.requestAmount)}
+                    </div>
+                    <Slider
+                      value={formData.requestAmount}
+                      min={100}
+                      max={10000}
+                      step={25}
+                      valueLabelDisplay="auto"
+                      valueLabelFormat={(v) => `$${formatMoney(v)}`}
+                      disabled={index !== currentStep}
+                      onChange={(_, value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          requestAmount: value as number,
+                        }))
+                      }
+                    />
+                  </>
+                )}
+
+                {field.type !== "slider" && (
+                  <input
+                    type={field.type}
+                    value={formData[field.key] as string}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [field.key]: e.target.value,
+                      }))
+                    }
+                    onKeyPress={handleKeyPress}
+                    placeholder={field.placeholder}
+                    disabled={index !== currentStep}
+                    className="field-input"
+                  />
+                )}
               </div>
             </div>
           ))}
         </div>
 
+        {/* Navigation */}
         <div className="navigation-section">
           <button
             onClick={handlePrev}
@@ -214,7 +218,7 @@ export function GetStarted() {
 
           <div className="nav-hint">
             {currentStep === fields.length - 1 ? (
-              <button onClick={() => fieldChecks()} className="submit-button">
+              <button onClick={handleSubmit} className="submit-button">
                 Submit
               </button>
             ) : (

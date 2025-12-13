@@ -3,11 +3,11 @@ import { createContext, useContext, useState } from "react";
 type FormData = {
   firstName: string;
   lastName: string;
-  age: string;
-  requestAmount: string;
+  age: number;
+  requestAmount: number;
   purpose: string;
   email: string;
-  [key: string]: string;
+  [key: string]: string | number;
 };
 
 const FormContext = createContext<{
@@ -19,8 +19,8 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
-    age: "",
-    requestAmount: "",
+    age: 25,
+    requestAmount: 5000,
     purpose: "",
     email: "",
   });

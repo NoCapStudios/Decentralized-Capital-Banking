@@ -38,7 +38,7 @@ export function UserPanel() {
               ? "Accepted"
               : "Rejected"}
           </p>
-          <NavLink to="/" className="panel-link">
+          <NavLink to="/documents" className="panel-link">
             Criteria for applications
           </NavLink>
         </div>
