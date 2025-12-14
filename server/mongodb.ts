@@ -2,6 +2,7 @@
 import { MongoClient } from 'mongodb';
 import "dotenv/config"
 const uri = process.env.PROD_MONGODB_URI!;
+// console.log(uri)
 let client: MongoClient | null = null;
 
 async function getClient() {

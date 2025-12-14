@@ -2,7 +2,6 @@ import { NavLink } from "react-router";
 import { useState, useEffect } from "react";
 import { fetchApplication } from "../../api/applications";
 import { useForm } from "../../context/FormContext";
-
 import "../../styles/UserPanel.css";
 
 export function UserPanel() {
@@ -60,9 +59,8 @@ export function UserPanel() {
           <p className="amount">
             ${Number(formData.requestAmount).toLocaleString("en-US")}
           </p>
-          <div className="panel-link" onClick={() => changeAmount()}>
-            Request Different Amount
-          </div>
+          {/* onClick={() => changeAmount()} */}
+          <div className="panel-link">Request Different Amount</div>
         </div>
         {application === "pending" ? (
           <div className="panel-card">
