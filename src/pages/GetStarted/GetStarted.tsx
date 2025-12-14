@@ -5,7 +5,7 @@ import Slider from "@mui/material/Slider";
 import { useForm } from "../../context/FormContext";
 import "../../styles/GetStarted.css";
 import "../../styles/Slider.css";
-/* helpers */
+
 const formatMoney = (n: number) => n.toLocaleString("en-US");
 
 export function GetStarted() {
@@ -73,14 +73,29 @@ export function GetStarted() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const fieldChecks = async () => {
     const errors = validateForm();
     if (errors.length) {
       errors.forEach((e) => alert(e));
       return;
     }
 
-    navigate("/user-panel");
+    try {
+      const res = await fetch("http://localhost:3001/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!data.success) throw new Error();
+
+      alert("Application submitted!");
+      navigate("/user-panel");
+    } catch {
+      alert("Failed to submit application");
+    }
   };
 
   const getFieldStyle = (index: number) => {
@@ -218,7 +233,7 @@ export function GetStarted() {
 
           <div className="nav-hint">
             {currentStep === fields.length - 1 ? (
-              <button onClick={handleSubmit} className="submit-button">
+              <button onClick={fieldChecks} className="submit-button">
                 Submit
               </button>
             ) : (

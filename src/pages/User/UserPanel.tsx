@@ -1,18 +1,31 @@
 import { NavLink } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchApplication } from "../../api/applications";
 import { useForm } from "../../context/FormContext";
+
 import "../../styles/UserPanel.css";
 
 export function UserPanel() {
   const { formData } = useForm();
-  //set application from an admin panel
-  type status = "pending" | "rejected" | "accepted";
-  const [application, setApplication] = useState<status>("accepted");
-  const changeAmount = () => {
-    //place holder log till i add logic.
-    console.log("change");
-    setApplication("accepted");
-  };
+  const [application, setApplication] = useState<
+    "pending" | "rejected" | "accepted"
+  >("pending");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadApplication() {
+      const app = await fetchApplication(formData.email);
+      if (app) {
+        setApplication(app.status);
+      }
+      setLoading(false);
+    }
+    loadApplication();
+  }, [formData.email]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="user-panel">
       <header className="user-panel-header">
