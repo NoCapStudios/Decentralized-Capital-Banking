@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function LandingPage() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,6 +23,44 @@ export function LandingPage() {
       gsap.set(pathRef.current, {
         strokeDasharray: pathLength,
         strokeDashoffset: pathLength,
+      });
+
+      gsap.from(".hero-logo", {
+        scale: 0.5,
+        opacity: 0,
+        duration: 1.2,
+        ease: "elastic.out(1, 0.6)",
+      });
+      gsap.to(".hero-logo", {
+        y: -20,
+        duration: 2.5,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+      gsap.from(".hero-text h1", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        delay: 0.3,
+        ease: "power3.out",
+      });
+
+      gsap.from(".hero-text p", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.5,
+      });
+      gsap.to(".badge", {
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+        },
+        y: 100,
+        ease: "none",
       });
 
       const tl = gsap.timeline({
@@ -74,10 +113,17 @@ export function LandingPage() {
 
       <main className="content-wrapper">
         {/* HERO */}
-        <section id="hero" className="hero-section">
-          <div className="hero-visuals">
+        <section id="hero" className="hero-section" ref={heroRef}>
+          <div className="hero-background">
+            <div className="gradient-orb orb-1"></div>
+            <div className="gradient-orb orb-2"></div>
+            <div className="gradient-orb orb-3"></div>
+          </div>
+
+          <div className="hero-visuals hero-logo">
             <FlowCapLogo size={220} />
           </div>
+
           <div className="hero-text">
             <h1 className="gradient-text">
               Fund your hustle, share your profit.
@@ -89,8 +135,14 @@ export function LandingPage() {
             <div className="cta-group">
               <NavLink className="primary-btn" to="/get-started">
                 Get Funded
+                <span className="btn-arrow">→</span>
               </NavLink>
             </div>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="scroll-indicator">
+            <div className="scroll-line"></div>
           </div>
         </section>
 

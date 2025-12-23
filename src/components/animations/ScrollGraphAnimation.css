@@ -62,8 +62,8 @@
     transform: translateY(-6px);
 }
 
-.card.secondary {
-    background: rgba(255, 255, 255, 0.04);
+.card.secondary:hover {
+    transform: translateY(-6px);
 }
 
 .card.inner {
