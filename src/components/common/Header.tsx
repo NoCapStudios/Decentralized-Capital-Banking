@@ -3,7 +3,7 @@ import logo from "../../assets/images/FullLogoSVG.svg";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 // import FlowCapLogo from "./Logo.tsx";
-import "../../styles/Header.css";
+import "./Header.css";
 
 gsap.registerPlugin(ScrollToPlugin);
 
