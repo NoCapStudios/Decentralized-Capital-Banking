@@ -1,45 +1,59 @@
 import { useState, type FormEvent } from "react";
 import { Header } from "../components/common/Header";
-import "../styles/Wishlist.css";
+import "../styles/Waitlist.css";
 
-export function Wishlist() {
-
+export function Waitlist() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success">("idle");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email.trim()) return;
-    setStatus("success");
+
+    try {
+      const res = await fetch("https://formspree.io/f/xykgrrgp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      }
+    } catch {}
   };
 
   return (
-    <div className="wishlist-root">
-      <title>FlowCap | Wishlist</title>
+    <div className="waitlist-root">
+      <title>FlowCap | Waitlist</title>
       <Header />
 
-      <main className="wishlist-shell">
-        <div className="wishlist-background">
-          <div className="wishlist-orb orb-a"></div>
-          <div className="wishlist-orb orb-b"></div>
-          <div className="wishlist-orb orb-c"></div>
+      <main className="waitlist-shell">
+        <div className="waitlist-background">
+          <div className="waitlist-orb orb-a"></div>
+          <div className="waitlist-orb orb-b"></div>
+          <div className="waitlist-orb orb-c"></div>
         </div>
 
-        <section className="wishlist-card">
+        <section className="waitlist-card">
           <span className="badge">Launch Notice</span>
-          <h1 className="wishlist-title">Join the early access list</h1>
-          <p className="wishlist-copy">
+          <h1 className="waitlist-title">Join the early access list</h1>
+          <p className="waitlist-copy">
             Drop your email to get a one-time note when FlowCap opens new spots.
             No spam, just the green light.
           </p>
 
-          <form className="wishlist-form" onSubmit={handleSubmit}>
-            <label className="sr-only" htmlFor="wishlist-email">
+          <form className="waitlist-form" onSubmit={handleSubmit}>
+            <label className="sr-only" htmlFor="waitlist-email">
               Email address
             </label>
             <div className="form-row">
               <input
-                id="wishlist-email"
+                id="waitlist-email"
                 type="email"
                 name="email"
                 placeholder="you@startup.com"
@@ -57,7 +71,7 @@ export function Wishlist() {
             </div>
           )}
 
-          <div className="wishlist-meta">
+          <div className="waitlist-meta">
             <div className="meta-pill">No credit card</div>
             <div className="meta-pill">One-click unsubscribe</div>
             <div className="meta-pill">Exclusive beta perks</div>

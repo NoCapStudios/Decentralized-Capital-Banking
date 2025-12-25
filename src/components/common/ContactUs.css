@@ -1,0 +1,52 @@
+.bug-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 640px;
+}
+
+.bug-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bug-form-group label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.bug-form-group input,
+.bug-form-group textarea {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text-main);
+    font-family: inherit;
+    resize: vertical;
+}
+
+.bug-form-group input:focus,
+.bug-form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-emerald);
+    box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+.bug-submit-btn {
+    align-self: flex-start;
+    background: linear-gradient(135deg, #10b981, #4adec9);
+    color: #022c22;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 22px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.bug-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}

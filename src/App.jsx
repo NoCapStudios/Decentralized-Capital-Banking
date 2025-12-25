@@ -5,9 +5,10 @@ import { UserPanel } from "./pages/User/UserPanel";
 import { Auth } from "./pages/User/Auth";
 import { Documents } from "./pages/Forms/Documents";
 import { BugSubmitted } from "./pages/Forms/BugSubmitted";
+import { ContactSubmitted } from "./pages/Forms/ContactSubmitted";
 import { RevenueTracker } from "./pages/RevenueTracker";
 import { RevenueLogger } from "./pages/RevenueLogger";
-import { Wishlist } from "./pages/Wishlist";
+import { Waitlist } from "./pages/Waitlist";
 import "./styles/App.css";
 import { FormProvider } from "./context/FormContext";
 
@@ -21,9 +22,10 @@ function App() {
         <Route path="auth" element={<Auth />} />
         <Route path="documents" element={<Documents />} />
         <Route path="bug-submitted" element={<BugSubmitted />} />
+        <Route path="contact-submitted" element={<ContactSubmitted />} />
         <Route path="revenue-tracker" element={<RevenueTracker />} />
         <Route path="revenue-logger" element={<RevenueLogger />} />
-        <Route path="wishlist" element={<Wishlist />} />
+        <Route path="waitlist" element={<Waitlist />} />
       </Routes>
     </FormProvider>
   );

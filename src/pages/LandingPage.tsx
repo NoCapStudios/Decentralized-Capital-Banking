@@ -68,7 +68,7 @@ export function LandingPage() {
           trigger: sectionRef.current,
           start: "top 20%",
           end: "bottom 50%",
-          scrub: 1, // Smoothly links animation to scroll position
+          scrub: 1,
           markers: false,
         },
       });
@@ -100,10 +100,10 @@ export function LandingPage() {
           },
         },
         0
-      ); // Start at the same time as the path (index 0)
+      );
     });
 
-    return () => ctx.revert(); // Cleanup
+    return () => ctx.revert();
   }, []);
 
   return (

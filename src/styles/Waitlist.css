@@ -9,7 +9,7 @@
   --border: rgba(255, 255, 255, 0.12);
 }
 
-.wishlist-root {
+.waitlist-root {
   min-height: 100vh;
   background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.1), transparent 30%),
     radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.08), transparent 30%),
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-.wishlist-shell {
+.waitlist-shell {
   max-width: 900px;
   margin: 0 auto;
   padding: 140px 20px 80px;
@@ -28,14 +28,14 @@
   z-index: 1;
 }
 
-.wishlist-background {
+.waitlist-background {
   position: absolute;
   inset: 0;
   overflow: hidden;
   z-index: 0;
 }
 
-.wishlist-orb {
+.waitlist-orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(70px);
@@ -66,7 +66,7 @@
   right: 30%;
 }
 
-.wishlist-card {
+.waitlist-card {
   background: var(--glass);
   border: 1px solid var(--border);
   border-radius: 28px;
@@ -87,21 +87,21 @@
   border: 1px solid var(--primary-emerald);
 }
 
-.wishlist-title {
+.waitlist-title {
   margin: 18px 0 12px;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
-.wishlist-copy {
+.waitlist-copy {
   margin: 0 0 26px;
   color: var(--text-muted);
   font-size: 1.05rem;
   line-height: 1.6;
 }
 
-.wishlist-form {
+.waitlist-form {
   margin-bottom: 20px;
 }
 
@@ -154,7 +154,7 @@
   font-weight: 600;
 }
 
-.wishlist-meta {
+.waitlist-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -183,7 +183,7 @@
 }
 
 @media (max-width: 720px) {
-  .wishlist-card {
+  .waitlist-card {
     padding: 32px;
   }
 

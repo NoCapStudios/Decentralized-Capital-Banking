@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import "./BugReportForm.css";
+import "./ContactUs.css";
 
-export function BugReportForm() {
+export function ContactUs() {
   const [user, setUser] = useState<{ email: string; name: string } | null>(
     null
   );
@@ -27,7 +27,7 @@ export function BugReportForm() {
     const formData = new FormData(e.currentTarget);
 
     try {
-      const res = await fetch("https://formspree.io/f/mwvedoqo", {
+      const res = await fetch("https://formspree.io/f/xeejyyar", {
         method: "POST",
         body: formData,
         headers: {
@@ -36,14 +36,14 @@ export function BugReportForm() {
       });
 
       if (res.ok) {
-        navigate("/bug-submitted");
+        navigate("/contact-submitted");
       } else {
         console.error("Form submission error", await res.json());
-        alert("There was an error submitting your bug report.");
+        alert("There was an error submitting your request.");
       }
     } catch (err) {
       console.error(err);
-      alert("There was an error submitting your bug report.");
+      alert("There was an error submitting your request.");
     }
   };
 
@@ -65,31 +65,31 @@ export function BugReportForm() {
       </div>
 
       <div className="bug-form-group">
-        <label>Bug Title</label>
+        <label>Suggestion/Request</label>
         <input name="title" placeholder="Short summary of the issue" required />
       </div>
 
       <div className="bug-form-group">
-        <label>Steps to Reproduce</label>
+        <label>Description</label>
         <textarea
           name="reproduction_steps"
-          placeholder={`1. Go to...\n2. Click...\n3. Error appears...`}
-          rows={5}
+          placeholder={`What would you like us to know?`}
+          rows={4}
           required
         />
       </div>
 
       <div className="bug-form-group">
-        <label>Expected Behavior</label>
+        <label>Additional Comments</label>
         <textarea
           name="expected_behavior"
-          placeholder="What should have happened instead?"
+          placeholder="Any additional comments?"
           rows={4}
         />
       </div>
 
       <button className="bug-submit-btn" type="submit">
-        Submit Bug Report
+        Submit Suggestion
       </button>
     </form>
   );

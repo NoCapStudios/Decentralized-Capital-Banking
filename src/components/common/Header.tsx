@@ -70,7 +70,7 @@ export function Header() {
           <NavLink to="/revenue-logger">Logger</NavLink>
         </li>
         <li>
-          <NavLink to="/wishlist">Wishlist</NavLink>
+          <NavLink to="/waitlist">Waitlist</NavLink>
         </li>
         <li>
           <NavLink to="/auth" className="auth-link">

@@ -1,11 +1,11 @@
 import { NavLink } from "react-router";
-import "../../styles/Documents.css";
+import "../../styles/SuccessPage.css";
 
 export function BugSubmitted() {
   return (
     <div className="landing-root">
       <main className="docs-layout">
-        <section className="doc-section" style={{ maxWidth: 720 }}>
+        <section className="doc-section" style={{ maxWidth: 1080 }}>
           <header className="doc-section-header">Bug Report Submitted</header>
 
           <article className="doc-section-body">
