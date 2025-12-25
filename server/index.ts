@@ -2,9 +2,9 @@
 
 import express from "express";
 import cors from "cors";
-import { saveApplication, getApplication } from "./mongodb.ts";
-
 import dotenv from "dotenv";
+import { saveApplication, getApplication, getBugReportUser } from "./mongodb.ts";
+
 dotenv.config();
 
 const app = express();
@@ -23,7 +23,7 @@ app.post("/api/applications", async (req, res) => {
 
 app.get("/api/applications/:email", async (req, res) => {
   try {
-    const application = await getApplication(req.params.email); // Renamed from 'app' to 'application'
+    const application = await getApplication(req.params.email);
     if (!application) {
       return res.status(404).json({ success: false, error: "Not found" });
     }
@@ -33,6 +33,31 @@ app.get("/api/applications/:email", async (req, res) => {
     res.status(500).json({ success: false, error: "Server error" });
   }
 });
+
+app.get("/api/bug/:email", async (req, res) => {
+  try {
+    const user = await getBugReportUser(req.params.email);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: "User not found",
+      });
+    }
+
+    res.json({
+      name: user.name,
+      email: user.email,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      error: "Server error",
+    });
+  }
+});
+
+
 
 app.listen(3001, () => {
   console.log("API running on http://localhost:3001");

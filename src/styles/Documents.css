@@ -33,6 +33,7 @@
 }
 
 .docs-content {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 80px;
@@ -47,6 +48,7 @@
 
 .doc-section-header {
     height: 48px;
+    font-size: 30px;
     margin-bottom: 32px;
 }
 
@@ -56,17 +58,27 @@
     gap: 24px;
 }
 
+.sub-header {
+    font-size: larger;
+}
+
 .status-block {
     border-radius: 16px;
     border: 1px solid var(--border);
     min-height: 120px;
 }
 
-.status-block.accepted {}
+.sub-header.pending {
+    color: #fbbf24;
+}
 
-.status-block.rejected {}
+.sub-header.accepted {
+    color: #22c55e;
+}
 
-.status-block.pending {}
+.sub-header.rejected {
+    color: #ef4444;
+}
 
 .policy-block {
     border-radius: 16px;

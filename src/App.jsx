@@ -4,6 +4,7 @@ import { GetStarted } from "./pages/GetStarted/GetStarted";
 import { UserPanel } from "./pages/User/UserPanel";
 import { Auth } from "./pages/User/Auth";
 import { Documents } from "./pages/Forms/Documents";
+import { BugSubmitted } from "./pages/Forms/BugSubmitted";
 import { RevenueTracker } from "./pages/RevenueTracker";
 import { RevenueLogger } from "./pages/RevenueLogger";
 import "./styles/App.css";
@@ -18,6 +19,7 @@ function App() {
         <Route path="user-panel" element={<UserPanel />} />
         <Route path="auth" element={<Auth />} />
         <Route path="documents" element={<Documents />} />
+        <Route path="bug-submitted" element={<BugSubmitted />} />
         <Route path="revenue-tracker" element={<RevenueTracker />} />
         <Route path="revenue-logger" element={<RevenueLogger />} />
       </Routes>

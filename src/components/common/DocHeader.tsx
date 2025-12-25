@@ -27,7 +27,11 @@ export function DocHeader() {
         });
       }, 100);
     } else {
-      gsap.to(window, { duration: 1, scrollTo: target, ease: "power3.inOut" });
+      gsap.to(window, {
+        duration: 0.5,
+        scrollTo: { y: target, offsetY: 50 },
+        ease: "power3.inOut",
+      });
     }
   };
   return (
@@ -46,28 +50,48 @@ export function DocHeader() {
           </a>
         </li>
         <li>
-          <a href="#analytics" onClick={(e) => handleScroll(e, "#analytics")}>
+          <a
+            href="#how-we-make-money"
+            onClick={(e) => handleScroll(e, "#how-we-make-money")}
+          >
+            Ventures
+          </a>
+        </li>
+        <li>
+          <a
+            href="#honesty-transparency"
+            onClick={(e) => handleScroll(e, "#honesty-transparency")}
+          >
             Honesty & Transparency
           </a>
         </li>
         <li>
-          <a href="#analytics" onClick={(e) => handleScroll(e, "#analytics")}>
+          <a
+            href="#application-standings"
+            onClick={(e) => handleScroll(e, "#application-standings")}
+          >
             Application Standings
           </a>
         </li>
         <li>
-          <a href="#team" onClick={(e) => handleScroll(e, "#team")}>
+          <a href="#policies" onClick={(e) => handleScroll(e, "#policies")}>
             Policies
           </a>
         </li>
         <li>
-          <a href="#team" onClick={(e) => handleScroll(e, "#team")}>
+          <a href="#terms" onClick={(e) => handleScroll(e, "#terms")}>
             Terms & Conditions
           </a>
         </li>
+        <div className="nav-divider"></div>
         <li>
-          <a href="#features" onClick={(e) => handleScroll(e, "#features")}>
-            Application Status
+          <a href="#contacts" onClick={(e) => handleScroll(e, "#contacts")}>
+            Contacts
+          </a>
+        </li>
+        <li>
+          <a href="#bug-report" onClick={(e) => handleScroll(e, "#bug-report")}>
+            Bug Report
           </a>
         </li>
 
