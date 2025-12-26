@@ -20,7 +20,7 @@ export function GetStarted() {
       type: "group",
       placeholders: { first: "John", last: "Doe", prefered: "Johnson" },
     },
-    { key: "age", label: "Age", type: "slider" },
+    { key: "dob", label: "Date of Birth", type: "date" },
     {
       key: "requestAmount",
       label: "How much would you like to request?",
@@ -40,10 +40,33 @@ export function GetStarted() {
     },
   ];
 
+  const MIN_AGE = 18;
+
+  const getAgeFromDob = (dob: string) => {
+    const birth = new Date(dob);
+    const today = new Date();
+
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+
+    return age;
+  };
+
   const handleNext = () => {
-    if (fields[currentStep].key === "age" && formData.age < 18) {
-      alert("Minimum age is 18");
-      return;
+    if (fields[currentStep].key === "dob") {
+      if (!formData.dob) {
+        alert("Date of birth is required");
+        return;
+      }
+
+      if (getAgeFromDob(formData.dob) < MIN_AGE) {
+        alert("You must be at least 18 years old");
+        return;
+      }
     }
 
     if (currentStep < fields.length - 1) {
@@ -70,7 +93,9 @@ export function GetStarted() {
     if (isEmpty(last)) errors.push("First name is missing");
     if (isEmpty(prefered)) errors.push("First name is missing");
 
-    if (formData.age < 18) errors.push("You must be at least 18");
+    if (!formData.dob) errors.push("Date of birth is required");
+    if (getAgeFromDob(formData.dob) < MIN_AGE)
+      errors.push("You must be at least 18 years old");
     if (!formData.requestAmount) errors.push("Requested amount is missing");
     if (!formData.purpose.trim()) errors.push("Purpose is missing");
     if (!formData.email.trim()) errors.push("Email is missing");
@@ -161,69 +186,33 @@ export function GetStarted() {
               <div className="field-card">
                 <label className="field-label">{field.label}</label>
 
-                {field.key === "age" && (
-                  <>
-                    <div className="slider-wrapper">
-                      <div className="slider-value">{formData.age}</div>
-                      <Slider
-                        value={formData.age}
-                        min={18}
-                        max={100}
-                        step={1}
-                        valueLabelDisplay="off"
-                        disabled={index !== currentStep}
-                        onChange={(_, value) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            age: value as number,
-                          }))
-                        }
-                        sx={{
-                          width: "100%",
-                          py: 1.5,
+                {field.key === "dob" && (
+                  <input
+                    type="date"
+                    value={formData.dob}
+                    max={new Date().toISOString().split("T")[0]}
+                    onChange={(e) => {
+                      const dob = e.target.value;
 
-                          "& .MuiSlider-track": {
-                            height: 6,
-                            borderRadius: 6,
-                            background:
-                              "linear-gradient(90deg, #4adecfff, #10b981)",
-                            border: "none",
-                          },
+                      const age =
+                        new Date().getFullYear() -
+                        new Date(dob).getFullYear() -
+                        (new Date() <
+                        new Date(
+                          new Date(dob).setFullYear(new Date().getFullYear())
+                        )
+                          ? 1
+                          : 0);
 
-                          "& .MuiSlider-rail": {
-                            opacity: 0.3,
-                            background: "linear-gradient(#37ea9aff, #305e49)",
-                          },
-
-                          "& .MuiSlider-thumb": {
-                            width: 32,
-                            height: 16,
-                            borderRadius: 2,
-                            backgroundColor: "#fff",
-                            border: "2px solid #305e49",
-                            transition:
-                              "transform 0.15s ease, box-shadow 0.15s ease",
-                          },
-
-                          "& .MuiSlider-mark": {
-                            width: 19,
-                            height: 19,
-                            borderRadius: "50%",
-                            backgroundColor: "#111",
-                            opacity: 0.25,
-                          },
-
-                          "& .MuiSlider-markActive": {
-                            opacity: 1,
-                          },
-
-                          "&.Mui-disabled": {
-                            opacity: 0.4,
-                          },
-                        }}
-                      />
-                    </div>
-                  </>
+                      setFormData((prev) => ({
+                        ...prev,
+                        dob,
+                        age,
+                      }));
+                    }}
+                    disabled={index !== currentStep}
+                    className="field-input"
+                  />
                 )}
 
                 {field.key === "requestAmount" && (

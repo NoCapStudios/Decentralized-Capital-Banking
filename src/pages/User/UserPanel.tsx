@@ -107,7 +107,7 @@ export function UserPanel() {
               {formData.names.last}
             </div>
             <div className="info-item">
-              <strong>Age:</strong> {formData.age}
+              <strong>Age:</strong> {formData.dob}
             </div>
             <div className="info-item">
               <strong>Requested:</strong> ${formData.requestAmount}
