@@ -60,6 +60,7 @@ export function GetStarted() {
   };
 
   const isEmpty = (v: string) => !v.trim();
+
   const validateForm = () => {
     const errors: string[] = [];
 
@@ -311,7 +312,7 @@ export function GetStarted() {
                 )}
 
                 {field.key === "Names" && (
-                  <>
+                  <div className="name-container">
                     <input
                       type={field.type}
                       value={formData.names.first}
@@ -324,7 +325,7 @@ export function GetStarted() {
                       onKeyPress={handleKeyPress}
                       placeholder={field.placeholders?.first}
                       disabled={index !== currentStep}
-                      className="field-input"
+                      className="field-input first"
                     />
                     <input
                       type={field.type}
@@ -338,7 +339,7 @@ export function GetStarted() {
                       onKeyPress={handleKeyPress}
                       placeholder={field.placeholders?.last}
                       disabled={index !== currentStep}
-                      className="field-input"
+                      className="field-input last"
                     />
                     <input
                       type={field.type}
@@ -352,10 +353,10 @@ export function GetStarted() {
                       onKeyPress={handleKeyPress}
                       placeholder={field.placeholders?.prefered}
                       disabled={index !== currentStep}
-                      className="field-input"
+                      className="field-input preferred"
                     />
                     <div className="slider-wrapper"></div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>

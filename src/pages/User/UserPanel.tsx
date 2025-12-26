@@ -28,7 +28,10 @@ export function UserPanel() {
   return (
     <div className="user-panel">
       <header className="user-panel-header">
-        <h1>Welcome to Your Dashboard, {formData.firstName}</h1>
+        <h1>
+          Welcome to Your Dashboard,{" "}
+          {formData.names.prefered || formData.names.first}
+        </h1>
         <p>Your request has been submitted successfully.</p>
       </header>
 
@@ -100,7 +103,8 @@ export function UserPanel() {
           <h2>Your Information</h2>
           <div className="user-info-grid">
             <div className="info-item">
-              <strong>Name:</strong> {formData.firstName} {formData.lastName}
+              <strong>Name:</strong> {formData.names.first}
+              {formData.names.last}
             </div>
             <div className="info-item">
               <strong>Age:</strong> {formData.age}
