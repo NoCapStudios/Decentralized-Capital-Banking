@@ -36,7 +36,7 @@ export async function saveApplication(formData: any) {
 
 export async function getApplication(email: string) {
   try {
-     // traverse through shema db -> collections -> user data.
+     // traverse through schema db -> collections -> user data.
     const client = await getClient();
     const db = client.db('dcab');
     const collection = db.collection('applications');

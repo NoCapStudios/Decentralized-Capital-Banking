@@ -41,7 +41,10 @@ export const Auth: React.FC = () => {
 
   const markFirstLoginPending = (email: string) => {
     try {
-      localStorage.setItem(FIRST_LOGIN_FLAG, JSON.stringify({ email, pending: true }));
+      localStorage.setItem(
+        FIRST_LOGIN_FLAG,
+        JSON.stringify({ email, pending: true })
+      );
     } catch (err) {
       console.warn("Failed to persist first-login flag", err);
     }
@@ -62,7 +65,8 @@ export const Auth: React.FC = () => {
   };
 
   const formatPhoneDisplay = (digits: string, code: string) => {
-    const country = phoneCountries.find((c) => c.code === code) || phoneCountries[0];
+    const country =
+      phoneCountries.find((c) => c.code === code) || phoneCountries[0];
     const parts: string[] = [];
     let idx = 0;
     for (const len of country.mask) {
@@ -84,7 +88,10 @@ export const Auth: React.FC = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
-    setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -99,7 +106,9 @@ export const Auth: React.FC = () => {
     setLoading(true);
     try {
       const endpoint =
-        mode === "login" ? "http://localhost:3001/api/auth/login" : "http://localhost:3001/api/auth/signup";
+        mode === "login"
+          ? "http://localhost:3001/api/auth/login"
+          : "http://localhost:3001/api/auth/signup";
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -108,6 +117,7 @@ export const Auth: React.FC = () => {
       });
 
       const payload = await response.json().catch(() => ({}));
+
       console.debug("Auth response", {
         mode,
         status: response.status,
@@ -117,7 +127,10 @@ export const Auth: React.FC = () => {
       if (!response.ok) {
         const label = mode === "login" ? "Login" : "Signup";
         setStatus(
-          payload.error || `${label} request failed (${response.status} ${response.statusText || "unknown"}).`
+          payload.error ||
+            `${label} request failed (${response.status} ${
+              response.statusText || "unknown"
+            }).`
         );
         return;
       }
@@ -139,7 +152,7 @@ export const Auth: React.FC = () => {
       }
 
       setStatus(payload.message || `Logged in (status ${response.status}).`);
-      navigate("/user-panel");
+      navigate("/get-started");
     } catch (error) {
       console.error(error);
       setStatus("Network error. Please try again.");
@@ -205,7 +218,9 @@ export const Auth: React.FC = () => {
 
       if (error) {
         console.error("OTP send failed", { e164, error });
-        setPhoneMessage(`Send failed (signInWithOtp): ${error.message || "unknown error"}`);
+        setPhoneMessage(
+          `Send failed (signInWithOtp): ${error.message || "unknown error"}`
+        );
       } else {
         console.debug("OTP send success", { e164, data });
         setPhoneMessage(`Code sent to ${e164}. Check your SMS.`);
@@ -237,11 +252,15 @@ export const Auth: React.FC = () => {
 
       if (error) {
         console.error("OTP verify failed", { e164, error });
-        setPhoneMessage(`Verification failed (verifyOtp): ${error.message || "unknown error"}`);
+        setPhoneMessage(
+          `Verification failed (verifyOtp): ${error.message || "unknown error"}`
+        );
       } else {
         console.debug("OTP verify success", { e164, data });
         setPhoneMessage(
-          `Phone verified via SMS. Session ${data.session ? "returned" : "not returned"}.`
+          `Phone verified via SMS. Session ${
+            data.session ? "returned" : "not returned"
+          }.`
         );
         setStatus("Phone verified. You are logged in.");
         if (data.session) {
@@ -291,18 +310,31 @@ export const Auth: React.FC = () => {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-header">
-          <span className="pill">{isSignup ? "New to FlowCap" : "Welcome back"}</span>
-          <h1>{isSignup ? "Create your access" : "Access your capital cockpit"}</h1>
+          <span className="pill">
+            {isSignup ? "New to FlowCap" : "Welcome back"}
+          </span>
+          <h1>
+            {isSignup ? "Create your access" : "Access your capital cockpit"}
+          </h1>
           <p>
-            Securely manage decentralized capital flows with your FlowCap account. Toggle below to sign up
-            or log in.
+            Securely manage decentralized capital flows with your FlowCap
+            account. Toggle below to sign up or log in.
           </p>
         </div>
 
         <div className="alt-actions">
-          <button type="button" className="alt-btn google" onClick={handleGoogle} disabled={loading}>
+          <button
+            type="button"
+            className="alt-btn google"
+            onClick={handleGoogle}
+            disabled={loading}
+          >
             <span className="alt-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M21 12.23c0-.71-.06-1.22-.19-1.75H12v3.17h5.18c-.1.79-.64 1.98-1.83 2.78l-.02.14 2.66 2.06.18.02c1.67-1.54 2.63-3.8 2.63-6.42Z"
                   fill="#4285F4"
@@ -323,12 +355,37 @@ export const Auth: React.FC = () => {
             </span>
             <span>Sign in with Google</span>
           </button>
-          <button type="button" className="alt-btn phone" onClick={handleOpenPhone} disabled={loading}>
+          <button
+            type="button"
+            className="alt-btn phone"
+            onClick={handleOpenPhone}
+            disabled={loading}
+          >
             <span className="alt-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="6" y="2" width="12" height="20" rx="2" ry="2" stroke="currentColor" strokeWidth="1.6" />
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="6"
+                  y="2"
+                  width="12"
+                  height="20"
+                  rx="2"
+                  ry="2"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                />
                 <circle cx="12" cy="18" r="1.2" fill="currentColor" />
-                <rect x="9" y="5" width="6" height="1.4" rx="0.7" fill="currentColor" />
+                <rect
+                  x="9"
+                  y="5"
+                  width="6"
+                  height="1.4"
+                  rx="0.7"
+                  fill="currentColor"
+                />
               </svg>
             </span>
             <span>Sign in with number</span>
@@ -342,7 +399,11 @@ export const Auth: React.FC = () => {
         {showPhoneModal && (
           <div className="modal-backdrop">
             <div className="modal-card">
-              <h3>{phoneStep === "phone" ? "Sign in with phone" : "Enter verification code"}</h3>
+              <h3>
+                {phoneStep === "phone"
+                  ? "Sign in with phone"
+                  : "Enter verification code"}
+              </h3>
               <p className="helper-text">
                 {phoneStep === "phone"
                   ? "We will send a one-time code to your mobile number."
@@ -370,7 +431,11 @@ export const Auth: React.FC = () => {
                         type="tel"
                         placeholder="123-456-7890"
                         value={formatPhoneDisplay(phoneDigits, selectedCountry)}
-                        onChange={(e) => setPhoneDigits(e.target.value.replace(/\D/g, "").slice(0, 15))}
+                        onChange={(e) =>
+                          setPhoneDigits(
+                            e.target.value.replace(/\D/g, "").slice(0, 15)
+                          )
+                        }
                         disabled={phoneLoading}
                       />
                     </div>
@@ -390,18 +455,35 @@ export const Auth: React.FC = () => {
                 </div>
               )}
 
-              {phoneMessage && <div className="status-message inline">{phoneMessage}</div>}
+              {phoneMessage && (
+                <div className="status-message inline">{phoneMessage}</div>
+              )}
 
               <div className="modal-actions">
-                <button type="button" className="ghost-btn" onClick={() => setShowPhoneModal(false)} disabled={phoneLoading}>
+                <button
+                  type="button"
+                  className="ghost-btn"
+                  onClick={() => setShowPhoneModal(false)}
+                  disabled={phoneLoading}
+                >
                   Cancel
                 </button>
                 {phoneStep === "phone" ? (
-                  <button type="button" className="primary-action" onClick={handleSendPhoneCode} disabled={phoneLoading}>
+                  <button
+                    type="button"
+                    className="primary-action"
+                    onClick={handleSendPhoneCode}
+                    disabled={phoneLoading}
+                  >
                     {phoneLoading ? "Sending..." : "Send code"}
                   </button>
                 ) : (
-                  <button type="button" className="primary-action" onClick={handleVerifyPhoneCode} disabled={phoneLoading}>
+                  <button
+                    type="button"
+                    className="primary-action"
+                    onClick={handleVerifyPhoneCode}
+                    disabled={phoneLoading}
+                  >
                     {phoneLoading ? "Verifying..." : "Verify code"}
                   </button>
                 )}
@@ -416,7 +498,9 @@ export const Auth: React.FC = () => {
                     onClick={handleResend}
                     disabled={phoneLoading || resendIn > 0}
                   >
-                    {resendIn > 0 ? `Send again in ${formatSeconds(resendIn)}` : "Send again"}
+                    {resendIn > 0
+                      ? `Send again in ${formatSeconds(resendIn)}`
+                      : "Send again"}
                   </button>
                 </div>
               )}
@@ -465,7 +549,12 @@ export const Auth: React.FC = () => {
 
           {!isSignup && (
             <label className="remember">
-              <input type="checkbox" name="remember" checked={form.remember} onChange={handleChange} />
+              <input
+                type="checkbox"
+                name="remember"
+                checked={form.remember}
+                onChange={handleChange}
+              />
               <span>Remember me</span>
             </label>
           )}
@@ -480,11 +569,13 @@ export const Auth: React.FC = () => {
         <div className="auth-switch">
           {isSignup ? (
             <p>
-              Already have an account? <button onClick={() => switchMode("login")}>Log in</button>
+              Already have an account?{" "}
+              <button onClick={() => switchMode("login")}>Log in</button>
             </p>
           ) : (
             <p>
-              Don&apos;t have an account? <button onClick={() => switchMode("signup")}>Sign up</button>
+              Don&apos;t have an account?{" "}
+              <button onClick={() => switchMode("signup")}>Sign up</button>
             </p>
           )}
         </div>

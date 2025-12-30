@@ -13,11 +13,12 @@ export const TwoFactorPrompt: React.FC = () => {
   const emailLabel = state.email ? `for ${state.email}` : "";
 
   const handleEnable = () => {
-    navigate("/user-panel", { replace: true });
+    navigate("/two-factor", { replace: true });
   };
 
+  // routes to home page
   const handleSkip = () => {
-    navigate("/user-panel", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (
@@ -27,8 +28,8 @@ export const TwoFactorPrompt: React.FC = () => {
           <span className="pill">Security</span>
           <h1>Enable two-factor authentication?</h1>
           <p>
-            Add an extra layer of protection {emailLabel}. You can set this up now or skip and do it later
-            from your account security settings.
+            Add an extra layer of protection {emailLabel}. You can set this up
+            now or skip and do it later from your account security settings.
           </p>
         </div>
 
@@ -37,7 +38,11 @@ export const TwoFactorPrompt: React.FC = () => {
         </div>
 
         <div className="auth-form">
-          <button type="button" className="primary-action" onClick={handleEnable}>
+          <button
+            type="button"
+            className="primary-action"
+            onClick={handleEnable}
+          >
             Set up 2FA now
           </button>
           <button type="button" className="ghost-btn" onClick={handleSkip}>
