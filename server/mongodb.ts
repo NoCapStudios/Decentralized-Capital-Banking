@@ -71,7 +71,7 @@ export async function getBugReportUser(email: string) {
     return {
       email: user.email,
       name:
-        user.names?.prefered ||
+        user.names?.preferred ||
         `${user.names?.first ?? ""} ${user.names?.last ?? ""}`.trim(),
     };
   } catch (error) {

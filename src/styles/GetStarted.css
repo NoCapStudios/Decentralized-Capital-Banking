@@ -1,10 +1,23 @@
+:root {
+    --bg-dark: #0e0f0f;
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-strong: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.08);
+
+    --emerald: #10b981;
+    --emerald-soft: rgba(16, 185, 129, 0.35);
+    --emerald-glow: rgba(16, 185, 129, 0.25);
+
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+}
+
 .carousel-container {
     min-height: 100vh;
-    filter: contrast(100%) brightness(100%) blur(0px);
-    /* white and green scheme #b0b0b0, #40c874 */
-    background: linear-gradient(120deg, #10b981, #0e0f0f);
-    background-size: 300% 300%;
-    animation: gradientShift 12s ease-in-out infinite;
+    background: radial-gradient(circle at top,
+            rgba(16, 185, 129, 0.15),
+            transparent 45%),
+        var(--bg-dark);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,57 +94,74 @@
 
 .field-card {
     display: flex;
-    justify-content: center;
+    gap: 1rem;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 2.25rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
 }
 
 .field-label {
-    display: block;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0rem;
-    margin-right: 0.8rem;
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-right: 1rem;
     text-align: center;
+    white-space: nowrap;
 }
 
-.field-input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    padding: 1rem 1.5rem;
-    font-size: 1.25rem;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 1rem;
-    color: white;
-    transition: all 0.3s ease;
-    outline: none;
+
+
+.name-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 30%;
+    grid-template-areas:
+        "first last"
+        "preferred preferred";
+    gap: 10px;
+}
+
+.name-container .first {
+    grid-area: first;
+}
+
+.name-container .last {
+    grid-area: last;
+}
+
+.name-container .preferred {
+    grid-area: preferred;
 }
 
 .field-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
+}
+
+.field-input {
+    padding: 1rem 1.5rem;
+    font-size: 1.15rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-main);
+    transition: all 0.25s ease;
 }
 
 .field-input:focus {
-    border-color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--emerald);
+    box-shadow: 0 0 0 3px var(--emerald-soft);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .field-input:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    opacity: 0.45;
 }
 
-/* Navigation Section */
 .navigation-section {
     display: flex;
     justify-content: center;
@@ -205,7 +235,6 @@
     transform: scale(0.95);
 }
 
-/* Keyboard Hint */
 .keyboard-hint {
     text-align: center;
     margin-top: 1.5rem;

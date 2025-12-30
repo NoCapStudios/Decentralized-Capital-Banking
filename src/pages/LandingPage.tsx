@@ -233,8 +233,11 @@ export function LandingPage() {
                 role: "Chief Technology Officer",
                 initial: "D.A",
               },
-              { name: "Dihyah Adib", role: "Operations Lead", initial: "D" },
-              { name: "Dihyah Adib", role: "UX/UI Design Lead", initial: "D" },
+              {
+                name: "Ayman Ahsan",
+                role: "IT Operations Lead",
+                initial: "A.A",
+              },
             ].map((member, i) => (
               <div key={i} className="member-card">
                 <div className="avatar-wrapper">
