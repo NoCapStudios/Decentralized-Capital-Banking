@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "vite",
-    "dev:server": "nodemon --exec ts-node server/index.ts",
+    "dev:server": "nodemon",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.14.1",
     "@formspree/react": "^3.0.0",
     "@mui/material": "^7.3.6",
+    "@supabase/supabase-js": "^2.48.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
