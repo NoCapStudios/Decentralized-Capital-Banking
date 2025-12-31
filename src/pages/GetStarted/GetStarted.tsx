@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { PartOne } from "../../components/common/PartOne";
+import { PartTwo } from "../../components/common/PartTwo";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import Slider from "@mui/material/Slider";
 import { useForm } from "../../context/FormContext";
@@ -21,7 +22,7 @@ export function GetStarted() {
       type: "section",
     },
     {
-      key: "requestAmount",
+      key: "PartTwo",
       label: "How much would you like to request?",
       type: "slider",
     },

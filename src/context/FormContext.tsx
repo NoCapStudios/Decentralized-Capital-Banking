@@ -13,7 +13,6 @@ type FormData = {
     preferred: string;
   };
   dob: string;
-
   email: string;
   phone: string;
   governmentId: {
@@ -26,6 +25,7 @@ type FormData = {
     city: string;
     zipcode: string;
   };
+
   requestAmount: number;
   purpose: string;
   [key: string]: string | number | object | any;

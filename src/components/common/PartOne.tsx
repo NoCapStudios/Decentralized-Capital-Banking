@@ -33,7 +33,7 @@ export function PartOne() {
         />
 
         <input
-          className="field-input preferred"
+          className="field-input"
           placeholder="Preferred name (optional)"
           value={formData.names.preferred}
           onChange={(e) =>
@@ -44,15 +44,14 @@ export function PartOne() {
           }
         />
       </div>
-
       <input
         type="date"
         value={formData.dob}
         onChange={(e) =>
           setFormData((p: any) => ({ ...p, dob: e.target.value }))
         }
+        className="field-input"
       />
-
       <input
         type="email"
         placeholder="Email"
@@ -73,95 +72,105 @@ export function PartOne() {
         className="field-input"
       />
 
-      <select
-        value={formData.governmentId.type}
-        onChange={(e) =>
-          setFormData((p: any) => ({
-            ...p,
-            governmentId: {
-              ...p.governmentId,
-              type: e.target.value as any,
-            },
-          }))
-        }
-        className="field-input"
-      >
-        <option value="">Select ID type</option>
-        <option value="ssn">SSN</option>
-        <option value="state_id">State ID</option>
-      </select>
+      <div className="gov-id-row">
+        <select
+          value={formData.governmentId.type}
+          onChange={(e) =>
+            setFormData((p: any) => ({
+              ...p,
+              governmentId: {
+                ...p.governmentId,
+                type: e.target.value as any,
+              },
+            }))
+          }
+          className="field-select"
+        >
+          <option value="">ID type</option>
+          <option value="ssn">SSN</option>
+          <option value="state_id">State ID</option>
+        </select>
 
-      <input
-        placeholder="ID Number"
-        value={formData.governmentId.number}
-        onChange={(e) =>
-          setFormData((p: any) => ({
-            ...p,
-            governmentId: {
-              ...p.governmentId,
-              number: e.target.value,
-            },
-          }))
-        }
-        className="field-input"
-      />
+        <input
+          placeholder="ID Number"
+          value={formData.governmentId.number}
+          onChange={(e) =>
+            setFormData((p: any) => ({
+              ...p,
+              governmentId: {
+                ...p.governmentId,
+                number: e.target.value,
+              },
+            }))
+          }
+          className="field-input"
+        />
+      </div>
 
-      <select
-        value={formData.location.country}
-        onChange={(e) =>
-          setFormData((p: any) => ({
-            ...p,
-            location: { ...p.location, country: e.target.value },
-          }))
-        }
-      >
-        {COUNTRIES.map((c: any) => (
-          <option key={c.code} value={c.code}>
-            {c.name}
-          </option>
-        ))}
-      </select>
+      {/* Location - Country and State in a row */}
+      <div className="location-row">
+        <select
+          value={formData.location.country}
+          onChange={(e) =>
+            setFormData((p: any) => ({
+              ...p,
+              location: { ...p.location, country: e.target.value },
+            }))
+          }
+          className="field-select"
+        >
+          {COUNTRIES.map((c: any) => (
+            <option key={c.code} value={c.code}>
+              {c.name}
+            </option>
+          ))}
+        </select>
 
-      <select
-        value={formData.location.state}
-        onChange={(e) =>
-          setFormData((p: any) => ({
-            ...p,
-            location: { ...p.location, state: e.target.value },
-          }))
-        }
-      >
-        <option value="">State</option>
-        {US_STATES.map((s: any) => (
-          <option key={s} value={s}>
-            {s}
-          </option>
-        ))}
-      </select>
+        <select
+          value={formData.location.state}
+          onChange={(e) =>
+            setFormData((p: any) => ({
+              ...p,
+              location: { ...p.location, state: e.target.value },
+            }))
+          }
+          className="field-select"
+        >
+          <option value="">State</option>
+          {US_STATES.map((s: any) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <input
-        placeholder="City"
-        value={formData.location.city}
-        onChange={(e) =>
-          setFormData((p: any) => ({
-            ...p,
-            location: { ...p.location, city: e.target.value },
-          }))
-        }
-        className="field-input"
-      />
+      {/* City and Zip in a row */}
+      <div className="location-row">
+        <input
+          placeholder="City"
+          value={formData.location.city}
+          onChange={(e) =>
+            setFormData((p: any) => ({
+              ...p,
+              location: { ...p.location, city: e.target.value },
+            }))
+          }
+          className="field-input"
+        />
 
-      <input
-        placeholder="Zip Code"
-        value={formData.location.zipcode}
-        onChange={(e) =>
-          setFormData((p: any) => ({
-            ...p,
-            location: { ...p.location, zipcode: e.target.value },
-          }))
-        }
-        className="field-input"
-      />
+        <input
+          placeholder="Zip Code"
+          value={formData.location.zipcode}
+          onChange={(e) =>
+            setFormData((p: any) => ({
+              ...p,
+              location: { ...p.location, zipcode: e.target.value },
+            }))
+          }
+          className="field-input"
+        />
+      </div>
     </section>
   );
 }

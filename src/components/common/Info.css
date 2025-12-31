@@ -3,11 +3,9 @@
     --glass: rgba(255, 255, 255, 0.04);
     --glass-strong: rgba(255, 255, 255, 0.08);
     --border: rgba(255, 255, 255, 0.08);
-
     --emerald: #10b981;
     --emerald-soft: rgba(16, 185, 129, 0.35);
     --emerald-glow: rgba(16, 185, 129, 0.25);
-
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
 }
@@ -35,40 +33,73 @@
     opacity: 0.95;
 }
 
-.name-container {
-    grid-template-columns: 50% 1fr;
-    grid-template-areas:
-        "first" "last"
-        "preferred";
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
-.field-row,
-.field-row.three {
-    grid-template-columns: 1fr;
+.form-section::-webkit-scrollbar {
+    width: 6px;
 }
 
+.form-section::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.form-section::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.3);
+    border-radius: 3px;
+}
+
+.form-section::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.5);
+}
+
+
+.location-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.gov-id-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 10px;
+}
 
 .field-input,
-.field-select {
+.field-select,
+.form-section>input,
+.form-section>select {
     width: 100%;
-    padding: 11px 12px;
-    font-size: 0.9rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(15, 18, 17, 0.9);
+    padding: 10px 12px;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(10, 12, 11, 0.95);
     color: #f1f3f2;
     outline: none;
     transition: border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
 
-.field-input::placeholder {
-    color: rgba(200, 205, 203, 0.45);
+.field-input::placeholder,
+.form-section>input::placeholder {
+    color: rgba(200, 205, 203, 0.5);
 }
 
 .field-input:focus,
-.field-select:focus {
+.field-select:focus,
+.form-section>input:focus,
+.form-section>select:focus {
     border-color: #59f0c8;
-    background: rgba(18, 22, 21, 0.95);
+    background: rgba(8, 10, 9, 0.98);
     box-shadow: 0 0 0 2px rgba(89, 240, 200, 0.15);
 }
 
@@ -78,40 +109,57 @@
     cursor: not-allowed;
 }
 
-.field-input.first {
-    grid-area: first;
-}
-
-.field-input.last {
-    grid-area: last;
-}
-
-.field-input.preferred {
-    grid-area: preferred;
-}
-
 input[type="date"] {
     color-scheme: dark;
+    cursor: pointer;
 }
 
+select,
 .field-select {
     appearance: none;
     background-image:
         linear-gradient(45deg, transparent 50%, #8eead2 50%),
         linear-gradient(135deg, #8eead2 50%, transparent 50%);
     background-position:
-        calc(100% - 18px) calc(50% - 3px),
-        calc(100% - 12px) calc(50% - 3px);
+        calc(100% - 16px) calc(50% - 3px),
+        calc(100% - 10px) calc(50% - 3px);
     background-size: 6px 6px;
     background-repeat: no-repeat;
-    padding-right: 36px;
+    padding-right: 32px;
+    cursor: pointer;
+}
+
+select option {
+    background: #1a1f1e;
+    color: #f1f3f2;
 }
 
 .field-label {
     color: var(--text-main);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    margin-right: 1rem;
+    margin-bottom: 12px;
     text-align: center;
-    white-space: nowrap;
+    display: block;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+
+    .name-container,
+    .location-row {
+        grid-template-columns: 1fr;
+    }
+
+    .name-container .field-input:nth-child(3) {
+        grid-column: 1;
+    }
+
+    .gov-id-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-section {
+        max-height: 350px;
+    }
 }
