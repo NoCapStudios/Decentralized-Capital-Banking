@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import { PartOne } from "../../components/common/PartOne";
 import { PartTwo } from "../../components/common/PartTwo";
 import { ChevronUp, ChevronDown } from "lucide-react";
-import Slider from "@mui/material/Slider";
 import { useForm } from "../../context/FormContext";
 import "../../styles/GetStarted.css";
 import "../../styles/Slider.css";
+import { CSSProperties } from "@mui/material/styles";
 
-const formatMoney = (n: number) => n.toLocaleString("en-US");
+export const formatMoney = (n: number) => n.toLocaleString("en-US");
 
 export function GetStarted() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -23,14 +23,13 @@ export function GetStarted() {
     },
     {
       key: "PartTwo",
-      label: "How much would you like to request?",
-      type: "slider",
+      label: "Income Information",
+      type: "section",
     },
     {
-      key: "purpose",
-      label: "What's the purpose?",
-      type: "text",
-      placeholder: "Business expansion",
+      key: "PartThree",
+      label: "",
+      type: "section",
     },
   ];
 
@@ -73,7 +72,11 @@ export function GetStarted() {
   };
 
   const handleKeyPress = (e: { key: string }) => {
-    if (e.key === "Enter") handleNext();
+    if (e.key === "Enter") {
+      if (currentStep < fields.length - 1) {
+        setCurrentStep(currentStep + 1);
+      }
+    }
   };
 
   const isEmpty = (v: string) => !v.trim();
@@ -85,7 +88,7 @@ export function GetStarted() {
 
     if (isEmpty(first)) errors.push("First name is missing");
     if (isEmpty(last)) errors.push("First name is missing");
-    if (isEmpty(preferred)) errors.push("First name is missing");
+    if (preferred && isEmpty(preferred)) errors.push("First name is missing");
 
     if (!formData.dob) errors.push("Date of birth is required");
     if (getAgeFromDob(formData.dob) < MIN_AGE)
@@ -122,11 +125,15 @@ export function GetStarted() {
     }
   };
 
-  const getFieldStyle = (index: number) => {
+  const getFieldStyle = (index: number): CSSProperties => {
     const diff = index - currentStep;
 
     if (diff === 0)
-      return { transform: "translateY(0) scale(1)", opacity: 1, zIndex: 10 };
+      return {
+        transform: "translateY(0) scale(1)",
+        opacity: 1,
+        zIndex: 10,
+      };
     if (diff === 1)
       return {
         transform: "translateY(140px) scale(0.85)",
@@ -170,7 +177,7 @@ export function GetStarted() {
           </div>
         </div>
 
-        <div className="carousel-fields">
+        <div className="carousel-fields" onKeyDown={handleKeyPress}>
           {fields.map((field, index) => (
             <div
               key={field.key}
@@ -180,97 +187,15 @@ export function GetStarted() {
               <div className="field-card">
                 <label className="field-label">{field.label}</label>
                 {field.key === "PartOne" && <PartOne />}
-
-                {field.key === "requestAmount" && (
-                  <>
-                    <div className="slider-wrapper">
-                      <div className="slider-value">
-                        ${formatMoney(formData.requestAmount)}
-                      </div>
-                      <Slider
-                        value={formData.requestAmount}
-                        min={100}
-                        max={10000}
-                        step={25}
-                        valueLabelDisplay="off"
-                        valueLabelFormat={(v) => `$${formatMoney(v)}`}
-                        disabled={index !== currentStep}
-                        onChange={(_, value) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            requestAmount: value as number,
-                          }))
-                        }
-                        sx={{
-                          width: "100%",
-                          py: 1.5,
-
-                          "& .MuiSlider-track": {
-                            height: 6,
-                            borderRadius: 6,
-                            background:
-                              "linear-gradient(90deg, #4adecfff, #10b981)",
-                            border: "none",
-                          },
-
-                          "& .MuiSlider-rail": {
-                            opacity: 0.3,
-                            background: "linear-gradient(#37ea9aff, #305e49)",
-                          },
-
-                          "& .MuiSlider-thumb": {
-                            width: 32,
-                            height: 16,
-                            borderRadius: 2,
-                            backgroundColor: "#fff",
-                            border: "2px solid #305e49",
-                            transition:
-                              "transform 0.15s ease, box-shadow 0.15s ease",
-                          },
-
-                          "& .MuiSlider-mark": {
-                            width: 19,
-                            height: 19,
-                            borderRadius: "50%",
-                            backgroundColor: "#111",
-                            opacity: 0.25,
-                          },
-
-                          "& .MuiSlider-markActive": {
-                            opacity: 1,
-                          },
-
-                          "&.Mui-disabled": {
-                            opacity: 0.4,
-                          },
-                        }}
-                      />
-                    </div>
-                  </>
+                {field.key === "PartTwo" && (
+                  <PartTwo index={index} currentStep={currentStep} />
                 )}
-
-                {(field.key === "purpose" || field.key === "email") && (
-                  <input
-                    type={field.type}
-                    value={formData[field.key]}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [field.key]: e.target.value,
-                      }))
-                    }
-                    onKeyPress={handleKeyPress}
-                    placeholder={field.placeholder}
-                    disabled={index !== currentStep}
-                    className="field-input"
-                  />
-                )}
+                {/* {field.key === "PartThree" && <PartThree />} */}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Navigation */}
         <div className="navigation-section">
           <button
             onClick={handlePrev}

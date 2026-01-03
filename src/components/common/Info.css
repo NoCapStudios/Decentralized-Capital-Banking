@@ -10,30 +10,8 @@
     --text-muted: #94a3b8;
 }
 
-.part-one-card {
-    background: linear-gradient(180deg,
-            rgba(30, 35, 34, 0.92),
-            rgba(20, 24, 23, 0.92));
-    border-radius: 18px;
-    padding: 28px 32px;
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(14px);
-    color: #e8eceb;
-    max-width: 720px;
-    margin: 0 auto;
-}
-
-.part-one-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    margin-bottom: 18px;
-    opacity: 0.95;
-}
-
-.form-section {
+.info-form-section-part-one,
+.info-form-section-part-two {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -42,41 +20,59 @@
     padding-right: 8px;
 }
 
-.form-section::-webkit-scrollbar {
-    width: 6px;
+.info-form-section-part-two {
+    height: 400px;
 }
 
-.form-section::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
+.info-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
 }
 
-.form-section::-webkit-scrollbar-thumb {
-    background: rgba(16, 185, 129, 0.3);
-    border-radius: 3px;
+.info-field-label {
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.85;
+    display: block;
 }
 
-.form-section::-webkit-scrollbar-thumb:hover {
-    background: rgba(16, 185, 129, 0.5);
+.info-field-sub-text {
+    color: var(--text-main);
+    font-size: 0.870rem;
+    font-weight: 500;
+    opacity: 0.35;
+    text-align: center;
+    display: block;
 }
 
+.info-name-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
 
-.location-row {
+.info-name-container .info-field-input:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+.info-location-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
-.gov-id-row {
+.info-gov-id-row {
     display: grid;
     grid-template-columns: 140px 1fr;
     gap: 10px;
 }
 
-.field-input,
-.field-select,
-.form-section>input,
-.form-section>select {
+.info-field-input,
+.info-field-select {
     width: 100%;
     padding: 10px 12px;
     font-size: 0.875rem;
@@ -89,33 +85,29 @@
     box-sizing: border-box;
 }
 
-.field-input::placeholder,
-.form-section>input::placeholder {
+.info-field-input::placeholder {
     color: rgba(200, 205, 203, 0.5);
 }
 
-.field-input:focus,
-.field-select:focus,
-.form-section>input:focus,
-.form-section>select:focus {
+.info-field-input:focus,
+.info-field-select:focus {
     border-color: #59f0c8;
     background: rgba(8, 10, 9, 0.98);
     box-shadow: 0 0 0 2px rgba(89, 240, 200, 0.15);
 }
 
-.field-input:disabled,
-.field-select:disabled {
+.info-field-input:disabled,
+.info-field-select:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-input[type="date"] {
+input[type="date"].info-field-input {
     color-scheme: dark;
     cursor: pointer;
 }
 
-select,
-.field-select {
+.info-field-select {
     appearance: none;
     background-image:
         linear-gradient(45deg, transparent 50%, #8eead2 50%),
@@ -129,37 +121,44 @@ select,
     cursor: pointer;
 }
 
-select option {
+.info-field-select option {
     background: #1a1f1e;
     color: #f1f3f2;
 }
 
-.field-label {
-    color: var(--text-main);
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin-bottom: 12px;
-    text-align: center;
-    display: block;
+.info-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 4px;
 }
 
-/* Responsive design */
+.info-slider-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--emerald);
+    text-align: center;
+    text-shadow: 0 0 20px var(--emerald-glow);
+}
+
 @media (max-width: 640px) {
 
-    .name-container,
-    .location-row {
+    .info-name-container,
+    .info-location-row {
         grid-template-columns: 1fr;
     }
 
-    .name-container .field-input:nth-child(3) {
+    .info-name-container .info-field-input:nth-child(3) {
         grid-column: 1;
     }
 
-    .gov-id-row {
+    .info-gov-id-row {
         grid-template-columns: 1fr;
     }
 
-    .form-section {
+    .info-form-section-part-one,
+    .info-form-section-part-two {
         max-height: 350px;
     }
 }

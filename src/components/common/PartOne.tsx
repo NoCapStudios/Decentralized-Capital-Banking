@@ -6,8 +6,8 @@ export function PartOne() {
   const { formData, setFormData } = useForm();
 
   return (
-    <section className="form-section">
-      <div className="name-container">
+    <section className="info-form-section-part-one">
+      <div className="info-name-container">
         <input
           placeholder="First name"
           value={formData.names.first}
@@ -17,7 +17,7 @@ export function PartOne() {
               names: { ...p.names, first: e.target.value },
             }))
           }
-          className="field-input"
+          className="info-field-input"
         />
 
         <input
@@ -29,11 +29,11 @@ export function PartOne() {
               names: { ...p.names, last: e.target.value },
             }))
           }
-          className="field-input"
+          className="info-field-input"
         />
 
         <input
-          className="field-input"
+          className="info-field-input"
           placeholder="Preferred name (optional)"
           value={formData.names.preferred}
           onChange={(e) =>
@@ -44,14 +44,18 @@ export function PartOne() {
           }
         />
       </div>
+
+      {/* Date of birth */}
       <input
         type="date"
         value={formData.dob}
         onChange={(e) =>
           setFormData((p: any) => ({ ...p, dob: e.target.value }))
         }
-        className="field-input"
+        className="info-field-input"
       />
+
+      {/* Contact information */}
       <input
         type="email"
         placeholder="Email"
@@ -59,7 +63,7 @@ export function PartOne() {
         onChange={(e) =>
           setFormData((p: any) => ({ ...p, email: e.target.value }))
         }
-        className="field-input"
+        className="info-field-input"
       />
 
       <input
@@ -69,10 +73,11 @@ export function PartOne() {
         onChange={(e) =>
           setFormData((p: any) => ({ ...p, phone: e.target.value }))
         }
-        className="field-input"
+        className="info-field-input"
       />
 
-      <div className="gov-id-row">
+      {/* Government ID - compact row */}
+      <div className="info-gov-id-row">
         <select
           value={formData.governmentId.type}
           onChange={(e) =>
@@ -84,7 +89,7 @@ export function PartOne() {
               },
             }))
           }
-          className="field-select"
+          className="info-field-select"
         >
           <option value="">ID type</option>
           <option value="ssn">SSN</option>
@@ -103,12 +108,12 @@ export function PartOne() {
               },
             }))
           }
-          className="field-input"
+          className="info-field-input"
         />
       </div>
 
       {/* Location - Country and State in a row */}
-      <div className="location-row">
+      <div className="info-location-row">
         <select
           value={formData.location.country}
           onChange={(e) =>
@@ -117,7 +122,7 @@ export function PartOne() {
               location: { ...p.location, country: e.target.value },
             }))
           }
-          className="field-select"
+          className="info-field-select"
         >
           {COUNTRIES.map((c: any) => (
             <option key={c.code} value={c.code}>
@@ -134,7 +139,7 @@ export function PartOne() {
               location: { ...p.location, state: e.target.value },
             }))
           }
-          className="field-select"
+          className="info-field-select"
         >
           <option value="">State</option>
           {US_STATES.map((s: any) => (
@@ -146,7 +151,7 @@ export function PartOne() {
       </div>
 
       {/* City and Zip in a row */}
-      <div className="location-row">
+      <div className="info-location-row">
         <input
           placeholder="City"
           value={formData.location.city}
@@ -156,7 +161,7 @@ export function PartOne() {
               location: { ...p.location, city: e.target.value },
             }))
           }
-          className="field-input"
+          className="info-field-input"
         />
 
         <input
@@ -168,7 +173,7 @@ export function PartOne() {
               location: { ...p.location, zipcode: e.target.value },
             }))
           }
-          className="field-input"
+          className="info-field-input"
         />
       </div>
     </section>
