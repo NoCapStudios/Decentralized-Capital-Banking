@@ -3,7 +3,7 @@ import "./Info.css";
 import { formatMoney } from "../../pages/GetStarted/GetStarted";
 import { selectStyle } from "../../context/constants";
 import Slider from "@mui/material/Slider";
-import { FormControl, Select, MenuItem, Typography } from "@mui/material";
+import { FormControl, Select, MenuItem } from "@mui/material";
 
 interface PartTwoProps {
   index?: number;
@@ -17,29 +17,89 @@ export function PartTwo({ index = 0, currentStep = 0 }: PartTwoProps) {
     <section className="info-form-section-part-two">
       <div className="info-field-group">
         <span className="info-field-label">What's your income source?</span>
-        <select
-          value={formData.incomeSource.type}
-          onChange={(e) =>
-            setFormData((p: any) => ({
-              ...p,
-              incomeSource: {
-                ...p.incomeSource,
-                type: e.target.value,
+        <FormControl fullWidth>
+          <Select
+            value={formData.incomeSource.type}
+            onChange={(e) =>
+              setFormData((p: any) => ({
+                ...p,
+                incomeSource: {
+                  ...p.incomeSource,
+                  type: e.target.value,
+                },
+              }))
+            }
+            sx={selectStyle}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  background: "#0e0f0f",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  mt: 1,
+                },
               },
-            }))
-          }
-          className="info-field-select"
-        >
-          <option value="">Select income source</option>
-          <option value="traditional-employment">Traditional employment</option>
-          <option value="driver-shopper">Delivery Driver/Shopper</option>
-          <option value="freelancing">Freelancing</option>
-          <option value="reselling">Reselling</option>
-          <option value="content-creator">Content Creator</option>
-          <option value="e-commerce">E-Commerce</option>
-          <option value="no-hustle-gig">I don't have a hustle/Gig</option>
-          <option value="other">Other</option>
-        </select>
+            }}
+          >
+            <MenuItem value="">
+              <span style={{ color: "#64748b" }}>Select income source</span>
+            </MenuItem>
+            <MenuItem value="traditional-employment">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>
+                Traditional employment
+              </span>
+            </MenuItem>
+            <MenuItem value="driver-shopper">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>
+                Delivery Driver/Shopper
+              </span>
+            </MenuItem>
+            <MenuItem value="freelancing">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>
+                Freelancing
+              </span>
+            </MenuItem>
+            <MenuItem value="reselling">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>Reselling</span>
+            </MenuItem>
+            <MenuItem value="content-creator">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>
+                Content Creator
+              </span>
+            </MenuItem>
+            <MenuItem value="e-commerce">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>
+                E-Commerce
+              </span>
+            </MenuItem>
+            <MenuItem value="no-hustle-gig">
+              <span style={{ color: "#94a3b8", marginLeft: 6 }}>
+                I don't have a hustle/Gig
+              </span>
+            </MenuItem>
+            <MenuItem value="other">
+              <span style={{ color: "#6682a7ff", marginLeft: 6 }}>— Other</span>
+            </MenuItem>
+          </Select>
+          {formData.incomeSource.type === "other" && (
+            <div className="fade-in">
+              <input
+                placeholder="Please specify"
+                value={formData.incomeSource.other || ""}
+                onChange={(e) =>
+                  setFormData((p: any) => ({
+                    ...p,
+                    incomeSource: {
+                      ...p.incomeSource,
+                      other: e.target.value,
+                    },
+                  }))
+                }
+                className="sub-input"
+              />
+            </div>
+          )}
+        </FormControl>
       </div>
 
       <div className="info-field-group">
@@ -74,7 +134,6 @@ export function PartTwo({ index = 0, currentStep = 0 }: PartTwoProps) {
             <MenuItem value="">
               <span style={{ color: "#64748b" }}>Select duration</span>
             </MenuItem>
-
             <MenuItem value="month-less">
               <span style={{ color: "#22c55e", fontWeight: 600 }}>
                 Fresh start
@@ -83,7 +142,6 @@ export function PartTwo({ index = 0, currentStep = 0 }: PartTwoProps) {
                 — A month or less
               </span>
             </MenuItem>
-
             <MenuItem value="month-year">
               <span style={{ color: "#eab308", fontWeight: 600 }}>
                 Rough beginnings
@@ -92,7 +150,6 @@ export function PartTwo({ index = 0, currentStep = 0 }: PartTwoProps) {
                 — A couple of months to a year
               </span>
             </MenuItem>
-
             <MenuItem value="couple-years">
               <span style={{ color: "#f97316", fontWeight: 600 }}>
                 Trudging Along
@@ -101,7 +158,6 @@ export function PartTwo({ index = 0, currentStep = 0 }: PartTwoProps) {
                 — A couple of years
               </span>
             </MenuItem>
-
             <MenuItem value="five-years-plus">
               <span style={{ color: "#22d3ee", fontWeight: 600 }}>Pro</span>
               <span style={{ color: "#94a3b8", marginLeft: 6 }}>
@@ -230,6 +286,93 @@ export function PartTwo({ index = 0, currentStep = 0 }: PartTwoProps) {
             </MenuItem>
           </Select>
         </FormControl>
+      </div>
+      <div className="info-field-group">
+        <span className="info-field-label">
+          Upload a recent bank or payment statement that shows your hustle
+          income/revenue
+        </span>
+        <span className="info-field-sub-text">
+          You can upload a screenshot from your bank, card, or business
+          dashboard. Please hide or blur any sensitive account details.
+        </span>
+
+        <input
+          type="file"
+          accept="image/*"
+          className="info-file-input"
+          onChange={async (e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            const previewUrl = URL.createObjectURL(file);
+            setFormData((p: any) => ({
+              ...p,
+              bankStatementPicture: {
+                previewUrl,
+                uploading: true,
+              },
+            }));
+
+            try {
+              const reader = new FileReader();
+              reader.onload = async (event) => {
+                const base64 = event.target?.result as string;
+                const response = await fetch(
+                  "http://localhost:3001/api/upload-bank-statement",
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      image: base64,
+                      email: formData.email,
+                    }),
+                  },
+                );
+
+                const data = await response.json();
+
+                if (data.success) {
+                  setFormData((p: any) => ({
+                    ...p,
+                    bankStatementPicture: {
+                      url: data.url,
+                      previewUrl,
+                      uploading: false,
+                    },
+                  }));
+                } else {
+                  alert("Upload failed. Please try again.");
+                  setFormData((p: any) => ({
+                    ...p,
+                    bankStatementPicture: null,
+                  }));
+                }
+              };
+              reader.readAsDataURL(file);
+            } catch (error) {
+              console.error("Upload error:", error);
+              alert("Upload failed. Please try again.");
+              setFormData((p: any) => ({
+                ...p,
+                bankStatementPicture: null,
+              }));
+            }
+          }}
+        />
+
+        {formData.bankStatementPicture?.previewUrl && (
+          <div className="image-preview">
+            <img
+              src={formData.bankStatementPicture.previewUrl}
+              alt="Bank statement preview"
+              className="preview-image"
+            />
+            {formData.bankStatementPicture.uploading && (
+              <div className="upload-overlay">Uploading...</div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

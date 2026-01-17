@@ -33,11 +33,12 @@ type FormData = {
       | "driver-shopper"
       | "freelancing"
       | "reselling"
-      | "content Creator"
+      | "content-creator"
       | "e-commerce"
-      | "no-hustle/gig"
-      | "Other"
+      | "no-hustle-gig"
+      | "other"
       | "";
+    other: string;
   };
   incomeLength: {
     type: "month-less" | "month-year" | "couple-years" | "five-years-plus" | "";
@@ -110,6 +111,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     // Sector Two:
     incomeSource: {
       type: "",
+      other: "",
     },
     incomeLength: { type: "" },
     incomeAmount: 30000,

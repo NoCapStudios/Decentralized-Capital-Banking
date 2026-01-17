@@ -4,13 +4,59 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { saveApplication, getApplication, getBugReportUser } from "./mongodb.ts";
+import { uploadToCloudinary } from "./cloudinary.ts";
 import { supabaseAdmin } from "./supabase.ts";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+
+// endpoint for image uploads
+app.post("/api/upload-bank-statement", async (req, res) => {
+  try {
+    const { image, email } = req.body
+
+    if (!image || !email) {
+      return res.status(400).json({
+        success: false,
+        error: "Image and email required"
+      })
+    }
+
+    const base64Data = image.replace(/^data:image\/\w+;base64,/, '')
+    const buffer = Buffer.from(base64Data, 'base64')
+
+    console.log('Uploading to Cloudinary...');
+
+    const result: any = await uploadToCloudinary(buffer, `bank-statements/${email}`)
+
+    console.log('Upload successful:', result.secure_url);
+
+    return res.json({
+      success: true,
+      url: result.secure_url,
+      publicId: result.public_id,
+    });
+  } catch (error: any) {
+    console.log("Upload error:", error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || "Failed to upload image"
+    })
+  }
+})
+
+app.post("/api/applications", async (req, res) => {
+  try {
+    const result = await saveApplication(req.body);
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
+})
 
 app.post("/api/auth/signup", async (req, res) => {
   const { email, password } = req.body ?? {};
