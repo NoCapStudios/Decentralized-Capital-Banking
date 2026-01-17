@@ -3,115 +3,252 @@
     --glass: rgba(255, 255, 255, 0.04);
     --glass-strong: rgba(255, 255, 255, 0.08);
     --border: rgba(255, 255, 255, 0.08);
-
     --emerald: #10b981;
     --emerald-soft: rgba(16, 185, 129, 0.35);
     --emerald-glow: rgba(16, 185, 129, 0.25);
-
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
 }
 
-.part-one-card {
-    background: linear-gradient(180deg,
-            rgba(30, 35, 34, 0.92),
-            rgba(20, 24, 23, 0.92));
-    border-radius: 18px;
-    padding: 28px 32px;
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(14px);
-    color: #e8eceb;
-    max-width: 720px;
-    margin: 0 auto;
+.info-form-section-part-one,
+.info-form-section-part-two {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 800px;
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
-.part-one-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    margin-bottom: 18px;
-    opacity: 0.95;
+.info-form-section-part-one {
+    height: 400px;
 }
 
-.name-container {
-    grid-template-columns: 50% 1fr;
-    grid-template-areas:
-        "first" "last"
-        "preferred";
+.info-form-section-part-two {
+    height: 460px;
 }
 
-.field-row,
-.field-row.three {
-    grid-template-columns: 1fr;
+.sub-input {
+    width: 95%;
+    height: 40px;
+    padding: 8px;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(10, 12, 11, 0.95);
+    color: #f1f3f2;
+    outline: none;
+    box-sizing: border-box;
 }
 
-
-.field-input,
-.field-select {
+.info-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
-    padding: 11px 12px;
-    font-size: 0.9rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(15, 18, 17, 0.9);
+}
+
+.info-field-label {
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.85;
+    display: block;
+}
+
+.info-field-sub-text {
+    color: var(--text-main);
+    font-size: 0.870rem;
+    font-weight: 500;
+    opacity: 0.35;
+    text-align: center;
+    display: block;
+}
+
+.info-name-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.info-name-container .info-field-input:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+.info-location-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.info-gov-id-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 10px;
+}
+
+.info-field-input,
+.info-field-select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(10, 12, 11, 0.95);
     color: #f1f3f2;
     outline: none;
     transition: border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
 
-.field-input::placeholder {
-    color: rgba(200, 205, 203, 0.45);
+.info-field-input::placeholder {
+    color: rgba(200, 205, 203, 0.5);
 }
 
-.field-input:focus,
-.field-select:focus {
+.info-field-input:focus,
+.info-field-select:focus {
     border-color: #59f0c8;
-    background: rgba(18, 22, 21, 0.95);
+    background: rgba(8, 10, 9, 0.98);
     box-shadow: 0 0 0 2px rgba(89, 240, 200, 0.15);
 }
 
-.field-input:disabled,
-.field-select:disabled {
+.info-field-input:disabled,
+.info-field-select:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.field-input.first {
-    grid-area: first;
-}
-
-.field-input.last {
-    grid-area: last;
-}
-
-.field-input.preferred {
-    grid-area: preferred;
-}
-
-input[type="date"] {
+input[type="date"].info-field-input {
     color-scheme: dark;
+    cursor: pointer;
 }
 
-.field-select {
+.info-field-select {
     appearance: none;
     background-image:
         linear-gradient(45deg, transparent 50%, #8eead2 50%),
         linear-gradient(135deg, #8eead2 50%, transparent 50%);
     background-position:
-        calc(100% - 18px) calc(50% - 3px),
-        calc(100% - 12px) calc(50% - 3px);
+        calc(100% - 16px) calc(50% - 3px),
+        calc(100% - 10px) calc(50% - 3px);
     background-size: 6px 6px;
     background-repeat: no-repeat;
-    padding-right: 36px;
+    padding-right: 32px;
+    cursor: pointer;
 }
 
-.field-label {
-    color: var(--text-main);
-    font-size: 1.25rem;
-    font-weight: 500;
-    margin-right: 1rem;
+.info-field-select option {
+    background: #1a1f1e;
+    color: #f1f3f2;
+}
+
+.info-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.info-slider-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--emerald);
     text-align: center;
-    white-space: nowrap;
+    text-shadow: 0 0 20px var(--emerald-glow);
+}
+
+@media (max-width: 640px) {
+
+    .info-name-container,
+    .info-location-row {
+        grid-template-columns: 1fr;
+    }
+
+    .info-name-container .info-field-input:nth-child(3) {
+        grid-column: 1;
+    }
+
+    .info-gov-id-row {
+        grid-template-columns: 1fr;
+    }
+
+    .info-form-section-part-one,
+    .info-form-section-part-two {
+        max-height: 350px;
+    }
+}
+
+.info-file-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(10, 12, 11, 0.95);
+    color: #f1f3f2;
+    cursor: pointer;
+}
+
+.info-file-input::file-selector-button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: var(--emerald);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: background 0.2s ease;
+}
+
+.info-file-input::file-selector-button:hover {
+    background: #0ea578;
+}
+
+/* Image preview container */
+.image-preview {
+    position: relative;
+    margin-top: 12px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.preview-image {
+    max-width: 100%;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Upload overlay (shown while uploading) */
+.upload-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    backdrop-filter: blur(4px);
+}
+
+.fade-in {
+    margin-top: 12px;
+    animation: fadeSlide 0.8s ease;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

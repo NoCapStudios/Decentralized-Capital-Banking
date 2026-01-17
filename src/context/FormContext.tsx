@@ -7,13 +7,13 @@ import React, {
 } from "react";
 
 type FormData = {
+  // Sector One:
   names: {
     first: string;
     last: string;
     preferred: string;
   };
   dob: string;
-
   email: string;
   phone: string;
   governmentId: {
@@ -26,8 +26,54 @@ type FormData = {
     city: string;
     zipcode: string;
   };
+  // Sector Two:
+  incomeSource: {
+    type:
+      | "traditional-employment"
+      | "driver-shopper"
+      | "freelancing"
+      | "reselling"
+      | "content-creator"
+      | "e-commerce"
+      | "no-hustle-gig"
+      | "other"
+      | "";
+    other: string;
+  };
+  incomeLength: {
+    type: "month-less" | "month-year" | "couple-years" | "five-years-plus" | "";
+  };
+  incomeAmount: number;
+  incomeConsistency: {
+    type: "very-inconsistent" | "Variable" | "very-consistent" | "";
+  };
+  bankStatementPicture: any;
+  // Sector Three:
   requestAmount: number;
   purpose: string;
+  allocation: string; //What EXACTLY are you spending this funding on?
+  increaseYourProfits: string; //(Example: ill buy $1000 worth of inventory and resell for 40% markup and profit +$400/month
+  whenCapitalImpact: string; //A date: 1 week, 1 month, 1 year? etc.
+  projectedMonthlyProfit: string;
+  // Sector Four:
+  fundingStructure: string;
+  paybackTimeFrame: string;
+  paybackFrequency: string; // weekly, bi, monthly
+  // Sector Five:
+  anyDebt: {
+    type: "YES" | "NO" | "";
+  };
+  creditScore: number;
+  legalDisputes: {
+    type: "YES" | "NO" | "";
+  };
+  experienceWithApp: {
+    type: "YES" | "NO" | "";
+  };
+  //Sector Six:
+  accurateIncomeInfo: any;
+  consentToBGCheck: any;
+  understandBankingStructure: any;
   [key: string]: string | number | object | any;
 };
 
@@ -42,6 +88,7 @@ const STORAGE_VERSION = 2;
 
 export const FormProvider = ({ children }: { children: ReactNode }) => {
   const defaultFormData: FormData = {
+    // Sector One:
     names: {
       first: "",
       last: "",
@@ -49,24 +96,55 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     },
 
     dob: "",
-
     email: "",
     phone: "",
-
     governmentId: {
       type: "",
       number: "",
     },
-
     location: {
       country: "US",
       state: "",
       city: "",
       zipcode: "",
     },
-
+    // Sector Two:
+    incomeSource: {
+      type: "",
+      other: "",
+    },
+    incomeLength: { type: "" },
+    incomeAmount: 30000,
+    incomeConsistency: {
+      type: "",
+    },
+    bankStatementPicture: ``,
+    // Sector Three:
     requestAmount: 1000,
     purpose: "",
+    allocation: "",
+    increaseYourProfits: "",
+    whenCapitalImpact: "",
+    projectedMonthlyProfit: "",
+    // Sector Four:
+    fundingStructure: "",
+    paybackTimeFrame: "",
+    paybackFrequency: "",
+    // Sector Five:
+    anyDebt: {
+      type: "",
+    },
+    creditScore: 720,
+    legalDisputes: {
+      type: "",
+    },
+    experienceWithApp: {
+      type: "",
+    },
+    // Sector Six:
+    accurateIncomeInfo: {},
+    consentToBGCheck: {},
+    understandBankingStructure: {},
   };
 
   const [formData, setFormData] = useState<FormData>(() => {
