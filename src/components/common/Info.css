@@ -11,7 +11,10 @@
 }
 
 .info-form-section-part-one,
-.info-form-section-part-two {
+.info-form-section-part-two,
+.info-form-section-part-three,
+.info-form-section-part-four,
+.info-form-section-part-five {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -26,6 +29,14 @@
 
 .info-form-section-part-two {
     height: 460px;
+}
+
+.info-form-section-part-three {
+    height: 450px;
+}
+
+.info-form-section-part-four {
+    /* height: 350px; */
 }
 
 .sub-input {

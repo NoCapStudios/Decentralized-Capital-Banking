@@ -51,14 +51,13 @@ type FormData = {
   // Sector Three:
   requestAmount: number;
   purpose: string;
-  allocation: string; //What EXACTLY are you spending this funding on?
   increaseYourProfits: string; //(Example: ill buy $1000 worth of inventory and resell for 40% markup and profit +$400/month
-  whenCapitalImpact: string; //A date: 1 week, 1 month, 1 year? etc.
+  whenCapitalImpact: { type: "1M" | "1TO3M" | "3TO6M" | "year-plus" | "" }; //A date: 1 week, 1 month, 1 year? etc.
   projectedMonthlyProfit: string;
   // Sector Four:
-  fundingStructure: string;
+  fundingStructure: { type: "markup" | "revenue-share" | "profit-share" | "" };
   paybackTimeFrame: string;
-  paybackFrequency: string; // weekly, bi, monthly
+  paybackFrequency: { type: "weekly" | "bi-weekly" | "monthly" | "" }; // weekly, bi, monthly
   // Sector Five:
   anyDebt: {
     type: "YES" | "NO" | "";
@@ -122,14 +121,13 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     // Sector Three:
     requestAmount: 1000,
     purpose: "",
-    allocation: "",
     increaseYourProfits: "",
-    whenCapitalImpact: "",
+    whenCapitalImpact: { type: "" },
     projectedMonthlyProfit: "",
     // Sector Four:
-    fundingStructure: "",
+    fundingStructure: { type: "" },
     paybackTimeFrame: "",
-    paybackFrequency: "",
+    paybackFrequency: { type: "" },
     // Sector Five:
     anyDebt: {
       type: "",
@@ -172,7 +170,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ ...formData, __v: STORAGE_VERSION })
+      JSON.stringify({ ...formData, __v: STORAGE_VERSION }),
     );
   }, [formData]);
 

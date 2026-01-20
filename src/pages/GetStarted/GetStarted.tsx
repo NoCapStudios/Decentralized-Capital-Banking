@@ -2,8 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { PartOne } from "../../components/common/PartOne";
 import { PartTwo } from "../../components/common/PartTwo";
+import { PartThree } from "../../components/common/PartThree";
+import { PartFour } from "../../components/common/PartFour";
+import { PartFive } from "../../components/common/PartFive";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { useForm } from "../../context/FormContext";
+import SubmissionLoader from "../../components/SubmissionLoader";
 import "../../styles/GetStarted.css";
 import "../../styles/Slider.css";
 import { CSSProperties } from "@mui/material/styles";
@@ -12,7 +16,10 @@ export const formatMoney = (n: number) => n.toLocaleString("en-US");
 
 export function GetStarted() {
   const [currentStep, setCurrentStep] = useState(0);
-  const { formData, setFormData } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const { formData } = useForm();
   const navigate = useNavigate();
 
   const fields = [
@@ -28,7 +35,17 @@ export function GetStarted() {
     },
     {
       key: "PartThree",
-      label: "",
+      label: "Funding Request Details",
+      type: "section",
+    },
+    {
+      key: "PartFour",
+      label: "Repayment Terms",
+      type: "section",
+    },
+    {
+      key: "PartFive",
+      label: "Financial History & Experience",
       type: "section",
     },
   ];
@@ -107,6 +124,8 @@ export function GetStarted() {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
       const res = await fetch("http://localhost:3001/api/applications", {
         method: "POST",
@@ -118,9 +137,13 @@ export function GetStarted() {
 
       if (!data.success) throw new Error();
 
-      alert("Application submitted!");
-      navigate("/user-panel");
+      setIsSuccess(true);
+
+      setTimeout(() => {
+        navigate("/user-panel");
+      }, 2000);
     } catch {
+      setIsSubmitting(false);
       alert("Failed to submit application");
     }
   };
@@ -155,79 +178,89 @@ export function GetStarted() {
   };
 
   return (
-    <div className="carousel-container">
-      <div className="carousel-wrapper">
-        <div className="progress-section">
-          <div className="progress-text">
-            Step {currentStep + 1} of {fields.length}
+    <>
+      {isSubmitting && <SubmissionLoader isSuccess={isSuccess} />}
+
+      <div className="carousel-container">
+        <div className="carousel-wrapper">
+          <div className="progress-section">
+            <div className="progress-text">
+              Step {currentStep + 1} of {fields.length}
+            </div>
+            <div className="progress-bars">
+              {fields.map((_, i) => (
+                <div
+                  key={i}
+                  className={`progress-bar ${
+                    i === currentStep
+                      ? "progress-bar-active"
+                      : i < currentStep
+                        ? "progress-bar-complete"
+                        : "progress-bar-inactive"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
-          <div className="progress-bars">
-            {fields.map((_, i) => (
+
+          <div className="carousel-fields" onKeyDown={handleKeyPress}>
+            {fields.map((field, index) => (
               <div
-                key={i}
-                className={`progress-bar ${
-                  i === currentStep
-                    ? "progress-bar-active"
-                    : i < currentStep
-                    ? "progress-bar-complete"
-                    : "progress-bar-inactive"
-                }`}
-              />
+                key={field.key}
+                className="field-wrapper"
+                style={getFieldStyle(index)}
+              >
+                <div className="field-card">
+                  <label className="field-label">{field.label}</label>
+                  {field.key === "PartOne" && <PartOne />}
+                  {field.key === "PartTwo" && (
+                    <PartTwo index={index} currentStep={currentStep} />
+                  )}
+                  {field.key === "PartThree" && (
+                    <PartThree index={index} currentStep={currentStep} />
+                  )}
+                  {field.key === "PartFour" && <PartFour />}
+                  {field.key === "PartFive" && (
+                    <PartFive index={index} currentStep={currentStep} />
+                  )}
+                </div>
+              </div>
             ))}
           </div>
-        </div>
 
-        <div className="carousel-fields" onKeyDown={handleKeyPress}>
-          {fields.map((field, index) => (
-            <div
-              key={field.key}
-              className="field-wrapper"
-              style={getFieldStyle(index)}
+          <div className="navigation-section">
+            <button
+              onClick={handlePrev}
+              disabled={currentStep === 0}
+              className="nav-button"
             >
-              <div className="field-card">
-                <label className="field-label">{field.label}</label>
-                {field.key === "PartOne" && <PartOne />}
-                {field.key === "PartTwo" && (
-                  <PartTwo index={index} currentStep={currentStep} />
-                )}
-                {/* {field.key === "PartThree" && <PartThree />} */}
-              </div>
+              <ChevronUp className="nav-icon" />
+            </button>
+
+            <div className="nav-hint">
+              {currentStep === fields.length - 1 ? (
+                <button onClick={fieldChecks} className="submit-button">
+                  Submit
+                </button>
+              ) : (
+                <span>Press Enter or ↓</span>
+              )}
             </div>
-          ))}
-        </div>
 
-        <div className="navigation-section">
-          <button
-            onClick={handlePrev}
-            disabled={currentStep === 0}
-            className="nav-button"
-          >
-            <ChevronUp className="nav-icon" />
-          </button>
-
-          <div className="nav-hint">
-            {currentStep === fields.length - 1 ? (
-              <button onClick={fieldChecks} className="submit-button">
-                Submit
-              </button>
-            ) : (
-              <span>Press Enter or ↓</span>
-            )}
+            <button
+              onClick={handleNext}
+              disabled={currentStep === fields.length - 1}
+              className="nav-button"
+            >
+              <ChevronDown className="nav-icon" />
+            </button>
           </div>
 
-          <button
-            onClick={handleNext}
-            disabled={currentStep === fields.length - 1}
-            className="nav-button"
-          >
-            <ChevronDown className="nav-icon" />
-          </button>
-        </div>
-
-        <div className="keyboard-hint">
-          Use arrow keys or click buttons to navigate
+          <div className="keyboard-hint">
+            Use arrow keys or click buttons to navigate
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -80,7 +80,7 @@ export function LandingPage() {
           strokeDashoffset: 0,
           ease: "none",
         },
-        0
+        0,
       );
 
       // Animate the money counter (Numerical Ticker)
@@ -94,12 +94,12 @@ export function LandingPage() {
           onUpdate: () => {
             if (counterRef.current) {
               counterRef.current.innerText = `$${Math.floor(
-                obj.value
+                obj.value,
               ).toLocaleString()}`;
             }
           },
         },
-        0
+        0,
       );
     });
 
@@ -124,9 +124,7 @@ export function LandingPage() {
           </div>
 
           <div className="hero-text">
-            <h1 className="gradient-text">
-              Fund your hustle, share your profit.
-            </h1>
+            <h1 className="">Fund your hustle, share your profit.</h1>
             <p>
               Interest-free capital for the next generation of builders. No
               debt, just partnership.
